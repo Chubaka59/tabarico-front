@@ -1,0 +1,39 @@
+<div class="sidebar">
+  <div class="logo">
+    <img src="banniere.png" alt="Bannière" class="banner-img"/>
+  </div>
+
+  <!-- Menu Compta -->
+  <a class="menu-parent" (click)="toggleMenu('compta')">
+    <span>Compta</span>
+    <span class="arrow" [class.open]="openMenu === 'compta'">▶</span>
+  </a>
+  @if (openMenu === 'compta') {
+    <div class="submenu">
+      <a routerLink="/personalDashboard">Compta Personnelle</a>
+      <a routerLink="/addExporterSale">Vente exportateur</a>
+      <a routerLink="/addCustomerSale">Vente client</a>
+      <a routerLink="/dashboard">Dashboard</a>
+    </div>
+  }
+
+  <!-- Stock -->
+  <a routerLink="/modifyStock">Stock</a>
+
+  <!-- Menu Administration -->
+  <a class="menu-parent" (click)="toggleMenu('admin')">
+    <span>Administration</span>
+    <span class="arrow" [class.open]="openMenu === 'admin'">▶</span>
+  </a>
+  @if (openMenu === 'admin') {
+    <div class="submenu">
+      <a routerLink="/users">Utilisateurs</a>
+      <a routerLink="/configuration">Configuration</a>
+    </div>
+  }
+
+  <!-- Autres liens -->
+  <a routerLink="/resetPassword">Changer de mot de passe</a>
+  <a routerLink="/logout">Se déconnecter</a>
+  <a routerLink="/login">Se connecter</a>
+</div>
