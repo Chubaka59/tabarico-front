@@ -77,3 +77,9 @@
 .arrow.open {
   transform: rotate(90deg); /* fait passer ▶ en ▼ */
 }
+
+.user-info {
+  margin-top: auto;   /* pousse vers le bas */
+  text-align: center;
+  font-size: 0.9rem;
+}

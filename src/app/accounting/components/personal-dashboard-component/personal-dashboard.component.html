@@ -1,0 +1,133 @@
+<div class="dashboard">
+  <h2>Compta perso</h2>
+
+  <div class="card-grid">
+    <!-- Carte 1 -->
+    <div class="card">
+      <h3>Prime de la semaine</h3>
+      <div class="value">{{ cleanMoneySalary | currency:'USD' }}</div>
+    </div>
+
+    <!-- Carte 2 -->
+    <div class="card">
+      <h3>Prime sale de la semaine</h3>
+      <div class="value">{{ dirtyMoneySalary | currency:'USD' }}</div>
+    </div>
+
+    <!-- Carte 3 -->
+    <div class="card">
+      <h3>Quota</h3>
+      <div class="icon" [ngClass]="quota ? 'green' : 'red'">
+        {{ quota ? '✔' : '✖' }}
+      </div>
+    </div>
+
+    <!-- Carte 4 -->
+    <div class="card">
+      <h3>Prime de la semaine dernière</h3>
+      <div class="value">{{ cleanMoneySalaryPreviousWeek | currency:'USD' }}</div>
+    </div>
+
+    <!-- Carte 5 -->
+    <div class="card">
+      <h3>Prime sale de la semaine dernière</h3>
+      <div class="value">{{ dirtyMoneySalaryPreviousWeek | currency:'USD' }}</div>
+    </div>
+
+    <!-- Carte 6 -->
+    <div class="card">
+      <h3>Quota export</h3>
+      <div class="icon" [ngClass]="exporterQuota ? 'green' : 'red'">
+        {{ exporterQuota ? '✔' : '✖' }}
+      </div>
+    </div>
+  </div>
+
+
+<section>
+    <h2>Historique de vos ventes exportateur de la semaine</h2>
+
+    <table mat-table [dataSource]="exporterSales" matSort class="mat-elevation-z8">
+
+      <!-- Date -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.date | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <!-- Niveau -->
+      <ng-container matColumnDef="niveau">
+        <th mat-header-cell *matHeaderCellDef>Niveau</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.level }}</td>
+      </ng-container>
+
+      <!-- Quantité -->
+      <ng-container matColumnDef="quantite">
+        <th mat-header-cell *matHeaderCellDef>Quantité</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.quantity }}</td>
+      </ng-container>
+
+      <!-- Montant employé -->
+      <ng-container matColumnDef="employeeAmount">
+        <th mat-header-cell *matHeaderCellDef>Montant employé</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.employeeAmount | currency: 'USD' }} </td>
+      </ng-container>
+
+      <!-- Montant entreprise -->
+      <ng-container matColumnDef="companyAmount">
+        <th mat-header-cell *matHeaderCellDef>Montant entreprise</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.companyAmount | currency: 'USD' }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="exporterDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: exporterDisplayedColumns;"></tr>
+    </table>
+  </section>
+
+  <section>
+    <h2>Historique de vos ventes client de la semaine</h2>
+
+    <table mat-table [dataSource]="customerSales" matSort class="mat-elevation-z8 full-width-table">
+
+      <!-- Date -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.date | date:'dd/MM/yyyy' }}</td>
+      </ng-container>
+
+      <!-- Produit -->
+      <ng-container matColumnDef="produit">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Produit</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.product?.name }}</td>
+      </ng-container>
+
+      <!-- Type de vente -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type de vente</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.typeOfSale }}</td>
+      </ng-container>
+
+      <!-- Quantité -->
+      <ng-container matColumnDef="quantite">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantité</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.quantity }}</td>
+      </ng-container>
+
+      <!-- Montant -->
+      <ng-container matColumnDef="montant">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Montant</th>
+        <td mat-cell *matCellDef="let sale">{{ sale.amount | currency: 'USD' }}</td>
+      </ng-container>
+
+      <!-- Lignes -->
+      <tr mat-header-row *matHeaderRowDef="customerDisplayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: customerDisplayedColumns"></tr>
+    </table>
+
+    <!-- Message si pas de données -->
+    <div class="no-data" *ngIf="customerSales.length === 0">
+      Aucune vente enregistrée cette semaine.
+    </div>
+  </section>
+
+</div>

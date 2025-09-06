@@ -34,6 +34,10 @@
 
   <!-- Autres liens -->
   <a routerLink="/resetPassword">Changer de mot de passe</a>
-  <a routerLink="/logout">Se déconnecter</a>
+  <a (click)="logout()">Se déconnecter</a>
   <a routerLink="/login">Se connecter</a>
+
+  <div class="user-info" *ngIf="userName">
+    Vous êtes connecté en tant que : <strong>{{ userName }}</strong>
+  </div>
 </div>

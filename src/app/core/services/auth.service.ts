@@ -1,0 +1,59 @@
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {tap} from 'rxjs';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  private apiUrl = 'http://localhost:8080/auth';
+
+  constructor(private http: HttpClient) {
+  }
+
+  login(username: string, password: string) {
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { username, password })
+      .pipe(
+        tap(response => {
+          localStorage.setItem('token', response.token);
+        })
+      );
+  }
+
+  getToken() {
+    return localStorage.getItem('token');
+  }
+
+  logout() {
+    localStorage.clear();
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.getToken();
+  }
+
+  decodeToken(): any | null {
+    const token = this.getToken();
+    if (!token) return null;
+    try {
+      const payload = token.split('.')[1];
+      const base64 = payload.replace(/-/g, '+').replace(/_/g, '/');
+      const json = decodeURIComponent(atob(base64).split('').map(c =>
+        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+      ).join(''));
+      return JSON.parse(json);
+    } catch {
+      return null;
+    }
+  }
+
+  getUserInfo(): { username: string; firstName?: string; lastName?: string } | null {
+    const decoded = this.decodeToken();
+    if (!decoded) return null;
+    return {
+      username: decoded.username,
+      firstName: decoded.firstName,
+      lastName: decoded.lastName
+    };
+  }
+}

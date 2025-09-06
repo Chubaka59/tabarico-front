@@ -1,0 +1,99 @@
+.dashboard {
+  padding: 20px;
+  background-color: #101414; // proche de la capture
+  color: #fff;
+
+  h2 {
+    margin-bottom: 24px;
+    font-size: 24px;
+    font-weight: bold;
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.card {
+  background-color: #013a30;  // fond sombre style Material
+  border-radius: 12px;        // coins arrondis
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: #e0e0e0;
+  }
+
+  .value {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-top: 8px;
+  }
+
+  .icon {
+    font-size: 36px;
+    margin-top: 10px;
+
+    &.red {
+      color: #ff5252;
+    }
+
+    &.green {
+      color: #4caf50;
+    }
+  }
+
+  /* Effet hover style Material */
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* exactement 3 colonnes */
+  gap: 24px;
+}
+
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cartes par ligne sur écrans moyens */
+  }
+}
+
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr; /* 1 carte par ligne sur mobile */
+  }
+}
+
+table {
+  width: 100%;
+  margin-top: 16px;
+}
+
+h2 {
+  margin-top: 50px;  /* espace au-dessus */
+  margin-bottom: 16px; /* garde un petit espace avec le tableau */
+  font-weight: bold;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  background: #222; /* comme ton style */
+  color: white;
+}
+
+.mat-row:hover {
+  background-color: rgba(0, 150, 136, 0.1);
+}

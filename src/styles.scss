@@ -45,3 +45,26 @@ html, body {
     margin-left: 0;
   }
 }
+
+.layout {
+  display: flex;
+  height: 100vh; // prend toute la hauteur de l'écran
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;       // largeur sidebar
+  height: 100%;
+  background-color: #004d40;
+  z-index: 1000;      // reste au-dessus
+}
+
+.content {
+  margin-left: 250px; // décale le contenu à droite
+  padding: 20px;
+  flex: 1;            // prend tout l’espace restant
+  overflow-y: auto;   // si beaucoup de contenu, scroll interne
+}
+

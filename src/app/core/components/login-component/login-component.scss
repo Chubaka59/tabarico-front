@@ -1,0 +1,39 @@
+.login-container {
+  height: 100vh;              /* prend toute la hauteur de l’écran */
+  display: flex;
+  flex-direction: column;     /* les éléments restent en colonne */
+  justify-content: center;    /* centre verticalement */
+  align-items: center;        /* centre horizontalement */
+  padding: 0;
+  margin: 0;
+  background-image: url("/Tabac.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;                  /* espace entre les champs */
+  width: 300px;               /* largeur fixe du formulaire */
+}
+
+.login-container input,
+.login-container button {
+  padding: 10px;
+  font-size: 14px;
+}
+
+input, button {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+}
+.error {
+  color: red;
+}
+
+

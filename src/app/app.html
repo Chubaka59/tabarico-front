@@ -1,1 +1,14 @@
-<app-header-component/>
+<!-- app.component.html -->
+@if (!isLoginPage()) {
+  <div class="layout">
+    <aside class="sidebar">
+      <app-header-component/>
+    </aside>
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+} @else {
+  <!-- login plein écran -->
+  <router-outlet></router-outlet>
+}
