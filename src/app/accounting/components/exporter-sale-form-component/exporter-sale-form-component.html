@@ -19,6 +19,9 @@
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Niveau</mat-label>
         <input matInput type="number" formControlName="level" required>
+        <mat-hint align="start">
+          T → /skills en jeu si vous ne vous souvenez plus de votre niveau
+        </mat-hint>
         @if (exporterSaleForm.get('level')?.hasError('required')) {
           <mat-error>Le niveau est obligatoire</mat-error>
         }

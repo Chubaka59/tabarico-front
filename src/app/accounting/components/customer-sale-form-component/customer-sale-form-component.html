@@ -1,0 +1,77 @@
+<div class="customer-sale-container">
+
+  <form class="customer-form" [formGroup]="clientSaleForm" (ngSubmit)="onSubmit()">
+    <h2>Nouvelle vente client</h2>
+
+    <!-- Produit -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Produit</mat-label>
+      <mat-select formControlName="product" required>
+        @for (p of products; track p.id) {
+          <mat-option [value]="p.id">{{ p.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Type de vente -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Type de vente</mat-label>
+      <mat-select formControlName="typeOfSale" required>
+        @for (t of saleTypes; track t.key) {
+          <mat-option [value]="t.key">{{ t.label }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Contrat -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Contrat</mat-label>
+      <mat-select formControlName="contract">
+        <!-- Option vide -->
+        <mat-option [value]="null">Aucun contrat</mat-option>
+
+        @for (c of contracts; track c.id) {
+          <mat-option [value]="c.id">{{ c.company }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <!-- Checkbox + bouton calcul -->
+    <div class="calc-container">
+      <mat-checkbox formControlName="calculateByPrice">
+        Calculer par prix (sinon par quantité)
+      </mat-checkbox>
+      <button mat-stroked-button color="accent" type="button" (click)="recalculate()">
+        Calculer
+      </button>
+    </div>
+
+    <!-- Quantité -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Quantité</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="quantity"
+        [disabled]="clientSaleForm.get('calculateByPrice')?.value"
+      />
+    </mat-form-field>
+
+    <!-- Prix -->
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Prix</mat-label>
+      <input
+        matInput
+        type="number"
+        formControlName="price"
+        [disabled]="!clientSaleForm.get('calculateByPrice')?.value"
+      />
+    </mat-form-field>
+
+    <!-- Bouton -->
+    <!-- Bouton -->
+    <button mat-raised-button color="primary" type="submit" [disabled]="clientSaleForm.invalid || !calculated">
+      Ajouter la vente
+    </button>
+  </form>
+</div>
