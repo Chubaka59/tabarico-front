@@ -1,0 +1,53 @@
+.page-wrapper {
+  display: flex;
+  justify-content: center;   // centre horizontalement
+  align-items: center;       // centre verticalement
+  min-height: 100vh;         // prend toute la hauteur de l’écran
+  background-color: #121212; // même fond sombre que les autres pages
+}
+
+.exporter-sale-container {
+  max-width: 500px;
+  width: 100%;
+  padding: 2rem;
+  background-color: #1e1e1e;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  color: #fff;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    align-self: center;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    background-color: #00695c !important;
+    color: #fff !important;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #00897b !important;
+    }
+
+    &:disabled {
+      background-color: #444 !important;
+      color: #888 !important;
+    }
+  }
+}

@@ -11,7 +11,7 @@ export class PersonalDashboardService {
 
   constructor(private http: HttpClient) {}
 
-  getPersonalDashboardData(username: string): Observable<PersonalDashboardModel> {
-    return this.http.get<PersonalDashboardModel>(`${this.apiUrl}personalDashboard?username=${username}`);
+  getPersonalDashboardData(): Observable<PersonalDashboardModel> {
+    return this.http.get<PersonalDashboardModel>(`${this.apiUrl}personalDashboard`);
   }
 }

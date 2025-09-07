@@ -58,24 +58,19 @@ export class PersonalDashboardComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const user = this.auth.getUserInfo();
-    if (user?.username) {
-      this.saleService.getPersonalDashboardData(user.username).subscribe({
-        next: (data: PersonalDashboardModel) => {
-          // alimenter les tableaux
-          this.customerSales = data.customerSaleDtoList;
-          this.exporterSales = data.exporterSaleDtoList;
-
-          // alimenter les cartes
-          this.cleanMoneySalary = data.cleanMoneySalary;
-          this.dirtyMoneySalary = data.dirtyMoneySalary;
-          this.cleanMoneySalaryPreviousWeek = data.cleanMoneySalaryPreviousWeek;
-          this.dirtyMoneySalaryPreviousWeek = data.dirtyMoneySalaryPreviousWeek;
-          this.quota = data.quota;
-          this.exporterQuota = data.exporterQuota;
-        },
-        error: err => console.error('Erreur de chargement des ventes', err)
-      });
-    }
+    this.saleService.getPersonalDashboardData().subscribe({
+      next: (data: PersonalDashboardModel) => {
+        // alimenter les tableaux
+        this.customerSales = data.customerSaleDtoList;
+        this.exporterSales = data.exporterSaleDtoList;
+        // alimenter les cartes
+        this.cleanMoneySalary = data.cleanMoneySalary;
+        this.dirtyMoneySalary = data.dirtyMoneySalary;
+        this.cleanMoneySalaryPreviousWeek = data.cleanMoneySalaryPreviousWeek;
+        this.dirtyMoneySalaryPreviousWeek = data.dirtyMoneySalaryPreviousWeek;
+        this.quota = data.quota;
+        this.exporterQuota = data.exporterQuota;},
+      error: err => console.error('Erreur de chargement des ventes', err)
+    });
   }
 }
