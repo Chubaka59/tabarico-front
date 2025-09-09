@@ -9,6 +9,9 @@ import {
 } from './accounting/components/exporter-sale-form-component/exporter-sale-form-component';
 import { CustomerSaleFormComponent } from './accounting/components/customer-sale-form-component/customer-sale-form-component'
 import {DashboardComponent} from './accounting/components/dashboard-component/dashboard-component';
+import {
+  StockManagementComponent
+} from './administration/component/stock-management.component/stock-management.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +19,7 @@ export const routes: Routes = [
   { path: 'addExporterSale', component: ExporterSaleFormComponent, canActivate: [AuthGuard] },
   { path: 'addCustomerSale', component: CustomerSaleFormComponent, canActivate: [AuthGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'modifyStock', component: StockManagementComponent, canActivate: [AuthGuard] },
   {
     path: 'logout',
     resolve: { logout: () => { localStorage.removeItem('token'); return true; } },

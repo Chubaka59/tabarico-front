@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import { DashboardModel } from '../models/dashboard.model';
+import { DashboardModel } from '../../core/models/dashboard.model';
 
 @Injectable({
   providedIn: 'root'

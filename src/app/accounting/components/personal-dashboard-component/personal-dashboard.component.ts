@@ -10,9 +10,9 @@ import { MatSort } from '@angular/material/sort';
 import {CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgIf} from '@angular/common';
 import { AuthService } from '../../../core/services/auth.service';
 import { PersonalDashboardService } from '../../services/personal-dashboard.service';
-import { CustomerSale } from '../../models/customer-sales.model';
-import { ExporterSale } from '../../models/exporter-sales.model';
-import { PersonalDashboardModel } from '../../models/personal-dashboard.model';
+import { CustomerSale } from '../../../core/models/customer-sales.model';
+import { ExporterSale } from '../../../core/models/exporter-sales.model';
+import { PersonalDashboardModel } from '../../../core/models/personal-dashboard.model';
 
 @Component({
   selector: 'app-personnal-dashboard-component',

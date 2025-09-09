@@ -4,7 +4,7 @@ import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import {FormsModule} from '@angular/forms';
 import { DashboardService } from '../../services/dashboard.service'
-import { DashboardModel } from '../../models/dashboard.model'
+import { DashboardModel } from '../../../core/models/dashboard.model'
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
