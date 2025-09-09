@@ -1,0 +1,102 @@
+.dashboard-container {
+  /* pas d’espace qui créerait un “trou” au-dessus des sticky headers */
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: #fff;
+  min-height: 100vh;
+
+  h2 {
+    /* si tu veux un titre, mets-le, mais il sera au-dessus du tableau */
+    margin: 16px 0;
+    font-weight: 600;
+    color: #fff;
+  }
+
+  .custom-table {
+    width: 100%;
+    background-color: #1e1e1e;
+    /* ⬇️ coins ronds uniquement en bas pour éviter les fuites visuelles au scroll */
+    border-radius: 0 0 12px 12px;
+    border-collapse: separate;
+    border-spacing: 0;
+
+    th, td {
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* En-têtes sticky (compat MDC & legacy) */
+    th.mat-mdc-header-cell,
+    th.mat-header-cell {
+      position: sticky;
+      top: 0;               /* collé en haut du conteneur qui scrolle (.content) */
+      z-index: 3;
+      background-color: #2a2a2a;  /* fond opaque pour masquer ce qui défile dessous */
+      color: #bdbdbd;
+      font-weight: 600;
+    }
+
+    /* Hauteur ligne d’en-tête Material (~56px par défaut) */
+    tr.mat-mdc-header-row, tr.mat-header-row {
+      height: 56px;
+    }
+
+    /* 2e ligne d’en-tête collée juste sous la 1re */
+    tr.mat-mdc-header-row:nth-of-type(2) th.mat-mdc-header-cell,
+    tr.mat-header-row:nth-of-type(2) th.mat-header-cell {
+      top: 56px; /* = hauteur de la première ligne */
+      z-index: 2;
+    }
+
+    /* Centrage du contenu */
+    td.mat-mdc-cell, td.mat-cell {
+      color: #fff;
+      text-align: center;
+      vertical-align: middle;
+    }
+    /* On aligne à gauche les 2 premières colonnes (poste, employé) */
+    td.mat-mdc-cell:first-child,
+    td.mat-mdc-cell:nth-child(2),
+    td.mat-cell:first-child,
+    td.mat-cell:nth-child(2) {
+      text-align: left;
+    }
+
+    .group-header {
+      background-color: #2a2a2a !important;
+      text-transform: none;
+      letter-spacing: .2px;
+    }
+
+    tr.mat-mdc-row:hover, tr.mat-row:hover {
+      background-color: #2a2a2a;
+    }
+  }
+}
+
+/* Champ date compact */
+.vacances-date-input {
+  width: 110px;
+  margin-left: 0.3rem;
+
+  .mat-mdc-text-field-wrapper {
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    padding: 0 6px;
+    height: 36px;
+    font-size: 12px;
+  }
+
+  input {
+    color: #fff;
+    font-size: 12px;
+    padding: 0;
+    text-align: center;
+  }
+
+  .mat-datepicker-toggle {
+    color: #fff;
+    font-size: 16px;
+    margin-left: -4px;
+  }
+}

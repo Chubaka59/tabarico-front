@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router, RouterLink} from '@angular/router';
+import {Router, RouterLink, RouterLinkActive} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {NgIf} from '@angular/common';
 
@@ -7,7 +7,8 @@ import {NgIf} from '@angular/common';
   selector: 'app-header-component',
   imports: [
     RouterLink,
-    NgIf
+    NgIf,
+    RouterLinkActive
   ],
   templateUrl: './header-component.html',
   styleUrl: './header-component.scss'

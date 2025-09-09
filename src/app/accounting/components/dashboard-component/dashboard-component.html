@@ -1,0 +1,140 @@
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
+
+  <!-- Colonnes normales avec rowspan -->
+  <ng-container matColumnDef="poste">
+    <th mat-header-cell *matHeaderCellDef rowspan="2">Poste</th>
+    <td mat-cell *matCellDef="let u">{{ u.roleName }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef rowspan="2">Employé</th>
+    <td mat-cell *matCellDef="let u">{{ u.username }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="venteClientGroup">
+    <th mat-header-cell *matHeaderCellDef colspan="2" class="group-header">
+      Vente Client
+    </th>
+  </ng-container>
+
+  <ng-container matColumnDef="venteClientPropre">
+    <th mat-header-cell *matHeaderCellDef>Propre</th>
+    <td mat-cell *matCellDef="let u">{{ u.cleanMoneyCustomerSales | currency: 'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="venteClientSale">
+    <th mat-header-cell *matHeaderCellDef>Sale</th>
+    <td mat-cell *matCellDef="let u">{{ u.dirtyMoneyCustomerSales | currency: 'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="venteGrossisteCayoGroup">
+    <th mat-header-cell *matHeaderCellDef colspan="2" class="group-header">
+      Vente Grossiste Cayo
+    </th>
+  </ng-container>
+
+  <!-- Sous-colonnes -->
+  <ng-container matColumnDef="venteGrossistePrimeEntreprise">
+    <th mat-header-cell *matHeaderCellDef>Prime Entreprise</th>
+    <td mat-cell *matCellDef="let u">{{ u.enterpriseAmountExporterSales | currency: 'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="venteGrossisteQuantite">
+    <th mat-header-cell *matHeaderCellDef>Quantité</th>
+    <td mat-cell *matCellDef="let u">{{ u.quantityExporterSales }}</td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="quota">
+    <th mat-header-cell *matHeaderCellDef rowspan="2">Quota</th>
+    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.quota" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+  </ng-container>
+
+  <ng-container matColumnDef="quotaGrossiste">
+    <th mat-header-cell *matHeaderCellDef rowspan="2">Quota Grossiste</th>
+    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.exporterQuota" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+  </ng-container>
+
+  <ng-container matColumnDef="vacances">
+    <th mat-header-cell *matHeaderCellDef rowspan="2">Vacances</th>
+    <td mat-cell *matCellDef="let u">
+      <mat-slide-toggle [(ngModel)]="u.holiday" (change)="onHolidayChange(u)"></mat-slide-toggle>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateRetour">
+    <th mat-header-cell *matHeaderCellDef rowspan="2">Retour</th>
+    <td mat-cell *matCellDef="let u">
+      @if (u.holiday) {
+        <mat-form-field appearance="outline" class="vacances-date-input">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            placeholder="Retour"
+            [(ngModel)]="u.endOfHoliday"
+            (dateChange)="onHolidayChange(u)"
+          />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      }
+    </td>
+  </ng-container>
+
+
+  <ng-container matColumnDef="primeActuelleGroup">
+    <th mat-header-cell *matHeaderCellDef colspan="2" class="group-header">
+      Prime Actuelle
+    </th>
+  </ng-container>
+
+  <ng-container matColumnDef="primeS1Group">
+    <th mat-header-cell *matHeaderCellDef colspan="2" class="group-header">
+      Prime S-1
+    </th>
+  </ng-container>
+
+  <ng-container matColumnDef="avertissementsGroup">
+    <th mat-header-cell *matHeaderCellDef colspan="2" class="group-header">
+      Avertissements
+    </th>
+  </ng-container>
+
+  <ng-container matColumnDef="primeActuellePropre">
+    <th mat-header-cell *matHeaderCellDef>Propre</th>
+    <td mat-cell *matCellDef="let u">{{ u.cleanMoneySalary | currency: 'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="primeActuelleSale">
+    <th mat-header-cell *matHeaderCellDef>Sale</th>
+    <td mat-cell *matCellDef="let u">{{ u.dirtyMoneySalary | currency: 'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="primeS1Propre">
+    <th mat-header-cell *matHeaderCellDef>Propre</th>
+    <td mat-cell *matCellDef="let u">{{ u.cleanMoneySalaryPreviousWeek | currency: 'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="primeS1Sale">
+    <th mat-header-cell *matHeaderCellDef>Sale</th>
+    <td mat-cell *matCellDef="let u">{{ u.dirtyMoneySalaryPreviousWeek | currency: 'USD' }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="avertissement1">
+    <th mat-header-cell *matHeaderCellDef>1</th>
+    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.warning1" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+  </ng-container>
+
+  <ng-container matColumnDef="avertissement2">
+    <th mat-header-cell *matHeaderCellDef>2</th>
+    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.warning2" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+  </ng-container>
+
+  <!-- Header rows -->
+  <tr mat-header-row *matHeaderRowDef="headerRow1; sticky: true"></tr>
+  <tr mat-header-row *matHeaderRowDef="headerRow2; sticky: true"></tr>
+
+
+  <!-- Rows -->
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

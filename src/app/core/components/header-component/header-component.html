@@ -10,15 +10,15 @@
   </a>
   @if (openMenu === 'compta') {
     <div class="submenu">
-      <a routerLink="/personalDashboard">Compta Personnelle</a>
-      <a routerLink="/addExporterSale">Vente exportateur</a>
-      <a routerLink="/addCustomerSale">Vente client</a>
-      <a routerLink="/dashboard">Dashboard</a>
+      <a routerLink="/personalDashboard" routerLinkActive="active-link">Compta Personnelle</a>
+      <a routerLink="/addExporterSale" routerLinkActive="active-link">Vente exportateur</a>
+      <a routerLink="/addCustomerSale"routerLinkActive="active-link">Vente client</a>
+      <a routerLink="/dashboard"routerLinkActive="active-link">Dashboard</a>
     </div>
   }
 
   <!-- Stock -->
-  <a routerLink="/modifyStock">Stock</a>
+  <a routerLink="/modifyStock" routerLinkActive="active-link">Stock</a>
 
   <!-- Menu Administration -->
   <a class="menu-parent" (click)="toggleMenu('admin')">
@@ -27,13 +27,13 @@
   </a>
   @if (openMenu === 'admin') {
     <div class="submenu">
-      <a routerLink="/users">Utilisateurs</a>
-      <a routerLink="/configuration">Configuration</a>
+      <a routerLink="/users" routerLinkActive="active-link">Utilisateurs</a>
+      <a routerLink="/configuration" routerLinkActive="active-link">Configuration</a>
     </div>
   }
 
   <!-- Autres liens -->
-  <a routerLink="/resetPassword">Changer de mot de passe</a>
+  <a routerLink="/resetPassword" routerLinkActive="active-link">Changer de mot de passe</a>
   <a (click)="logout()">Se déconnecter</a>
   <a routerLink="/login">Se connecter</a>
 

@@ -62,9 +62,13 @@ html, body {
 }
 
 .content {
-  margin-left: 250px; // décale le contenu à droite
-  padding: 20px;
-  flex: 1;            // prend tout l’espace restant
-  overflow-y: auto;   // si beaucoup de contenu, scroll interne
+  position: relative;
+  margin-left: 250px;
+  /* ⬇️ pas de padding en haut, sinon on voit le tableau “derrière” les sticky headers */
+  padding: 0 20px 20px;
+  flex: 1;
+  overflow-y: auto;        /* c’est CE conteneur qui scrolle */
+  background-color: #121212; /* même fond que la page */
 }
+
 
