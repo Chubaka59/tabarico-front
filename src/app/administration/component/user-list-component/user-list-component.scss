@@ -1,0 +1,36 @@
+h2 {
+  margin: 1.5rem 0; // espace en haut et en bas
+  font-size: 2rem;  // un peu plus grand si tu veux
+  font-weight: bold;
+}
+
+/* Bouton "Supprimer" */
+button.delete-btn {
+  color: #d32f2f;
+}
+.header-actions {
+  display: flex;
+  justify-content: space-between; /* Sépare recherche à gauche, bouton à droite */
+  align-items: center;
+  margin-bottom: 20px;
+
+  mat-form-field {
+    flex: 1; /* prend tout l’espace disponible à gauche */
+    max-width: 400px;
+  }
+
+  button {
+    margin-left: 20px;
+  }
+}
+.mat-column-firstName,
+.mat-column-lastName,
+.mat-column-username,
+.mat-column-phone,
+.mat-column-role,
+.mat-column-identityCard,
+.mat-column-action {
+  flex: 1; /* chaque colonne prend une part égale */
+  text-align: center; /* pour centrer le texte */
+}
+

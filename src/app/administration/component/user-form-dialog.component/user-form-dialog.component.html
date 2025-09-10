@@ -1,0 +1,61 @@
+<h2 mat-dialog-title>{{ isEditMode ? 'Modifier utilisateur' : 'Créer un utilisateur' }}</h2>
+
+<form [formGroup]="userForm" (ngSubmit)="isEditMode ? updateUser() : createUser()" class="user-form">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Prénom</mat-label>
+    <input matInput formControlName="firstName" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nom</mat-label>
+    <input matInput formControlName="lastName" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nom d'utilisateur</mat-label>
+    <input matInput formControlName="username" required />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Mot de passe</mat-label>
+    <input matInput type="password" formControlName="password"/>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Téléphone</mat-label>
+    <input matInput formControlName="phone" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="full-width">
+    <mat-label>Rôle</mat-label>
+    <mat-select formControlName="role">
+      @for (r of roles; track r.id) {
+        <mat-option [value]="r.id">
+          {{ r.name }}
+        </mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+
+  <div class="file-upload">
+    <label for="identityCard">Carte d'identité</label>
+    <input
+      id="identityCard"
+      type="file"
+      (change)="onFileSelected($event)"
+      accept="image/*,.pdf"
+    />
+  </div>
+
+
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="userForm.invalid">
+      {{ isEditMode ? 'Modifier' : 'Créer' }}
+    </button>
+    <button mat-stroked-button color="warn" type="button" (click)="cancel()">
+      Annuler
+    </button>
+  </div>
+</form>
