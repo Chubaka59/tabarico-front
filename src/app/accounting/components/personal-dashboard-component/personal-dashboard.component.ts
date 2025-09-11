@@ -30,7 +30,6 @@ import { PersonalDashboardModel } from '../../../core/models/personal-dashboard.
     MatRow,
     MatRowDef,
     MatHeaderRowDef,
-    NgIf,
     CurrencyPipe,
     NgClass
   ],

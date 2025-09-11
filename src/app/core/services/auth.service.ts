@@ -7,15 +7,19 @@ import {tap} from 'rxjs';
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/auth';
+  private role: string | null = null;
 
   constructor(private http: HttpClient) {
+    this.role = localStorage.getItem('role');
   }
 
   login(username: string, password: string) {
-    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, { username, password })
+    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/login`, { username, password })
       .pipe(
         tap(response => {
+          this.setRole(response.role)
           localStorage.setItem('token', response.token);
+          localStorage.setItem('role', response.role)
         })
       );
   }
@@ -55,5 +59,17 @@ export class AuthService {
       firstName: decoded.firstName,
       lastName: decoded.lastName
     };
+  }
+
+  setRole(role: string) {
+    this.role = role;
+  }
+
+  isResponsable(): boolean {
+    return this.role === 'Responsable';
+  }
+
+  isCDI(): boolean {
+    return this.role === 'CDI';
   }
 }

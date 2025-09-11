@@ -37,4 +37,12 @@ export class HeaderComponent implements OnInit {
     this.auth.logout();
     this.router.navigate(['/login']); // redirige manuellement
   }
+
+  isResponsable(): boolean {
+    return this.auth.isResponsable();
+  }
+
+  isCDI(): boolean {
+    return this.auth.isCDI() || this.isResponsable();
+  }
 }

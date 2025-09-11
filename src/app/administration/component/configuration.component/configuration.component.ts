@@ -96,19 +96,6 @@ export class ConfigurationComponent implements OnInit {
   }
 
   // === ACTIONS ===
-  addRole() {
-    const dialogRef = this.dialog.open(RoleDialogComponent, {
-      width: '400px',
-      data: null
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        this.snack.open('Rôle ajouté avec succès', 'Fermer', { duration: 4000 });
-        this.loadRoles();
-      }
-    });
-  }
   editRole(role: RoleModel) {
     const dialogRef = this.dialog.open(RoleDialogComponent, {
       width: '450px',

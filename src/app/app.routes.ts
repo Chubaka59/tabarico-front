@@ -15,23 +15,27 @@ import {
 import {UserListComponent} from './administration/component/user-list-component/user-list-component';
 import {ChangePasswordComponent} from './administration/component/change-password.component/change-password.component';
 import {ConfigurationComponent} from './administration/component/configuration.component/configuration.component';
+import {ResponsableGuard} from './core/guards/responsable.guard';
+import {CdiGuard} from './core/guards/cdi.guard';
+import {ForbiddenComponent} from './core/components/forbidden.component/forbidden.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'personalDashboard', component: PersonalDashboardComponent, canActivate: [AuthGuard] },
   { path: 'addExporterSale', component: ExporterSaleFormComponent, canActivate: [AuthGuard] },
-  { path: 'addCustomerSale', component: CustomerSaleFormComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: 'modifyStock', component: StockManagementComponent, canActivate: [AuthGuard] },
-  { path: 'users', component: UserListComponent, canActivate: [AuthGuard]},
+  { path: 'addCustomerSale', component: CustomerSaleFormComponent, canActivate: [AuthGuard, ResponsableGuard, CdiGuard] },
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, ResponsableGuard] },
+  { path: 'modifyStock', component: StockManagementComponent, canActivate: [AuthGuard, CdiGuard] },
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuard, ResponsableGuard]},
   { path: 'resetPassword', component: ChangePasswordComponent, canActivate: [AuthGuard] },
-  { path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuard] },
+  { path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuard, ResponsableGuard] },
   {
     path: 'logout',
     resolve: { logout: () => { localStorage.removeItem('token'); return true; } },
     redirectTo: 'login',
     pathMatch: 'full'
   },
+  { path: 'forbidden', component: ForbiddenComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full'},
   { path: '**', redirectTo: '/login' }
 ];

@@ -82,6 +82,13 @@
       <tr mat-header-row *matHeaderRowDef="exporterDisplayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: exporterDisplayedColumns;"></tr>
     </table>
+
+  <!-- Message si pas de données -->
+  @if (exporterSales.length === 0) {
+    <div class="no-data">
+      Aucune vente enregistrée cette semaine.
+    </div>
+  }
   </section>
 
   <section>
@@ -125,9 +132,11 @@
     </table>
 
     <!-- Message si pas de données -->
-    <div class="no-data" *ngIf="customerSales.length === 0">
-      Aucune vente enregistrée cette semaine.
-    </div>
+    @if (customerSales.length === 0) {
+      <div class="no-data">
+        Aucune vente enregistrée cette semaine.
+      </div>
+    }
   </section>
 
 </div>

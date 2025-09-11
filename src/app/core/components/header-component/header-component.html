@@ -12,30 +12,36 @@
     <div class="submenu">
       <a routerLink="/personalDashboard" routerLinkActive="active-link">Compta Personnelle</a>
       <a routerLink="/addExporterSale" routerLinkActive="active-link">Vente exportateur</a>
-      <a routerLink="/addCustomerSale"routerLinkActive="active-link">Vente client</a>
-      <a routerLink="/dashboard"routerLinkActive="active-link">Dashboard</a>
+      @if (isCDI()) {
+        <a routerLink="/addCustomerSale"routerLinkActive="active-link">Vente client</a>
+      }
+      @if (isResponsable()) {
+        <a routerLink="/dashboard"routerLinkActive="active-link">Dashboard</a>
+      }
     </div>
   }
 
   <!-- Stock -->
-  <a routerLink="/modifyStock" routerLinkActive="active-link">Stock</a>
-
+  @if (isCDI()) {
+    <a routerLink="/modifyStock" routerLinkActive="active-link">Stock</a>
+  }
   <!-- Menu Administration -->
-  <a class="menu-parent" (click)="toggleMenu('admin')">
-    <span>Administration</span>
-    <span class="arrow" [class.open]="openMenu === 'admin'">▶</span>
-  </a>
-  @if (openMenu === 'admin') {
-    <div class="submenu">
-      <a routerLink="/users" routerLinkActive="active-link">Utilisateurs</a>
-      <a routerLink="/configuration" routerLinkActive="active-link">Configuration</a>
-    </div>
+  @if (isResponsable()) {
+    <a class="menu-parent" (click)="toggleMenu('admin')">
+      <span>Administration</span>
+      <span class="arrow" [class.open]="openMenu === 'admin'">▶</span>
+    </a>
+    @if (openMenu === 'admin') {
+      <div class="submenu">
+        <a routerLink="/users" routerLinkActive="active-link">Utilisateurs</a>
+        <a routerLink="/configuration" routerLinkActive="active-link">Configuration</a>
+      </div>
+    }
   }
 
   <!-- Autres liens -->
   <a routerLink="/resetPassword" routerLinkActive="active-link">Changer de mot de passe</a>
   <a (click)="logout()">Se déconnecter</a>
-  <a routerLink="/login">Se connecter</a>
 
   <div class="user-info" *ngIf="userName">
     Vous êtes connecté en tant que : <strong>{{ userName }}</strong>
