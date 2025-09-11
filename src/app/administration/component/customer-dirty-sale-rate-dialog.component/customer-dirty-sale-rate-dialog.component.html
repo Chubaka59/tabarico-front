@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Modifier le taux de vente client sale</h2>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <mat-form-field class="full-width">
+    <mat-label>Taux (%)</mat-label>
+    <input matInput type="number" formControlName="customerDirtySaleRate" required />
+  </mat-form-field>
+
+  <div class="actions">
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">Enregistrer</button>
+    <button mat-stroked-button color="warn" type="button" (click)="close()">Annuler</button>
+  </div>
+</form>

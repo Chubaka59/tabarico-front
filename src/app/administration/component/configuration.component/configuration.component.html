@@ -1,0 +1,137 @@
+<div class="config-container">
+  <!-- Card Roles -->
+  <mat-card>
+    <mat-card-title>Liste des rôles</mat-card-title>
+    <button mat-stroked-button color="primary" (click)="addRole()">Ajouter un rôle</button>
+    <table mat-table [dataSource]="roles" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let r">{{ r.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="taux">
+        <th mat-header-cell *matHeaderCellDef>Taux de redistribution</th>
+        <td mat-cell *matCellDef="let r">{{ r.redistributionRate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="salaire">
+        <th mat-header-cell *matHeaderCellDef>Salaire</th>
+        <td mat-cell *matCellDef="let r">{{ r.salary }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let r">
+          <button mat-stroked-button color="primary" (click)="editRole(r)">Modifier</button>
+          <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteRole(r)">Supprimer</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['name','taux','salaire','action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['name','taux','salaire','action']"></tr>
+    </table>
+  </mat-card>
+
+  <!-- Card Contrats -->
+  <mat-card>
+    <mat-card-title>Liste des contrats</mat-card-title>
+    <button mat-stroked-button color="primary" (click)="addContract()">Ajouter un contrat</button>
+    <table mat-table [dataSource]="contrats" class="mat-elevation-z8">
+      <ng-container matColumnDef="entreprise">
+        <th mat-header-cell *matHeaderCellDef>Entreprise</th>
+        <td mat-cell *matCellDef="let c">{{ c.company }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="reduction">
+        <th mat-header-cell *matHeaderCellDef>Réduction</th>
+        <td mat-cell *matCellDef="let c">{{ c.reduction }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let c">
+          <button mat-stroked-button color="primary" (click)="editContract(c)">Modifier</button>
+          <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteContract(c)">Supprimer</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['entreprise','reduction','action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['entreprise','reduction','action']"></tr>
+    </table>
+  </mat-card>
+
+  <!-- Card Produits -->
+  <mat-card>
+    <mat-card-title>Liste des produits</mat-card-title>
+    <table mat-table [dataSource]="produits" class="mat-elevation-z8">
+      <ng-container matColumnDef="produit">
+        <th mat-header-cell *matHeaderCellDef>Produit</th>
+        <td mat-cell *matCellDef="let p">{{ p.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="propre">
+        <th mat-header-cell *matHeaderCellDef>Prix argent propre</th>
+        <td mat-cell *matCellDef="let p">{{ p.cleanMoney }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="sale">
+        <th mat-header-cell *matHeaderCellDef>Prix argent sale</th>
+        <td mat-cell *matCellDef="let p">{{ p.dirtyMoney }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let p">
+          <button mat-stroked-button color="primary" (click)="editProduct(p)">Modifier</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['produit','propre','sale','action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['produit','propre','sale','action']"></tr>
+    </table>
+  </mat-card>
+
+  <!-- Card Taux Vente -->
+  <mat-card>
+    <mat-card-title>Taux Vente Client Sale</mat-card-title>
+    <table mat-table [dataSource]="customerDirtySaleRate" class="mat-elevation-z8">
+      <ng-container matColumnDef="taux">
+        <th mat-header-cell *matHeaderCellDef>Taux</th>
+        <td mat-cell *matCellDef="let t">{{ t.customerDirtySaleRate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let t">
+          <button mat-stroked-button color="primary" (click)="editCustomerDirtySaleRateModel(t)">Modifier</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['taux','action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['taux','action']"></tr>
+    </table>
+  </mat-card>
+
+  <!-- Card Consommables -->
+  <mat-card>
+    <mat-card-title>Liste des consommables</mat-card-title>
+    <button mat-stroked-button color="primary" (click)="addConsumable()">Ajouter un consommable</button>
+    <table mat-table [dataSource]="consommables" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nom</th>
+        <td mat-cell *matCellDef="let c">{{ c.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <td mat-cell *matCellDef="let c">
+          <button mat-stroked-button color="primary" (click)="editConsumable(c)">Modifier</button>
+          <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteConsumable(c)">Supprimer</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="['name','action']"></tr>
+      <tr mat-row *matRowDef="let row; columns: ['name','action']"></tr>
+    </table>
+  </mat-card>
+</div>

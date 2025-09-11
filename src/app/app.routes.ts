@@ -14,6 +14,7 @@ import {
 } from './administration/component/stock-management.component/stock-management.component';
 import {UserListComponent} from './administration/component/user-list-component/user-list-component';
 import {ChangePasswordComponent} from './administration/component/change-password.component/change-password.component';
+import {ConfigurationComponent} from './administration/component/configuration.component/configuration.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -24,6 +25,7 @@ export const routes: Routes = [
   { path: 'modifyStock', component: StockManagementComponent, canActivate: [AuthGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard]},
   { path: 'resetPassword', component: ChangePasswordComponent, canActivate: [AuthGuard] },
+  { path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuard] },
   {
     path: 'logout',
     resolve: { logout: () => { localStorage.removeItem('token'); return true; } },
