@@ -1,10 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {StockTransactionModel} from '../../core/models/stock-transaction.model';
 import {ProductModel} from '../../core/models/Product.model';
 import {StockHistoryModel} from '../../core/models/stock-history.model'
-import {HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'

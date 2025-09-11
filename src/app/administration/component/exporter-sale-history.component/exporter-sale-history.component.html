@@ -1,0 +1,68 @@
+<div class="exporter-sales-container">
+  <h2>Historique des ventes exportateurs</h2>
+
+  <!-- Filtre par date -->
+  <mat-form-field appearance="outline" style="width: 250px; margin-bottom: 20px;">
+    <mat-label>Date</mat-label>
+    <input
+      matInput
+      [matDatepicker]="picker"
+      [(ngModel)]="filterDate"
+      (dateChange)="filterByDate()"
+      name="filterDate"
+    >
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <!-- Tableau -->
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
+
+    <!-- Date -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef>Date</th>
+      <td mat-cell *matCellDef="let s">{{ s.date | date:'dd-MM-yyyy HH:mm' }}</td>
+    </ng-container>
+
+    <!-- Utilisateur -->
+    <ng-container matColumnDef="user">
+      <th mat-header-cell *matHeaderCellDef>Utilisateur</th>
+      <td mat-cell *matCellDef="let s">{{ s.user.username }}</td>
+    </ng-container>
+
+    <!-- Quantité -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef>Quantité</th>
+      <td mat-cell *matCellDef="let s">{{ s.quantity }}</td>
+    </ng-container>
+
+    <!-- Niveau -->
+    <ng-container matColumnDef="level">
+      <th mat-header-cell *matHeaderCellDef>Niveau</th>
+      <td mat-cell *matCellDef="let s">{{ s.level }}</td>
+    </ng-container>
+
+    <!-- Montant employé -->
+    <ng-container matColumnDef="employeeAmount">
+      <th mat-header-cell *matHeaderCellDef>Montant Employé</th>
+      <td mat-cell *matCellDef="let s">{{ s.employeeAmount | currency:'EUR' }}</td>
+    </ng-container>
+
+    <!-- Montant société -->
+    <ng-container matColumnDef="companyAmount">
+      <th mat-header-cell *matHeaderCellDef>Montant Société</th>
+      <td mat-cell *matCellDef="let s">{{ s.companyAmount | currency:'EUR' }}</td>
+    </ng-container>
+
+    <!-- Action -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let s">
+        <button mat-stroked-button color="warn" class="delete-btn" (click)="deleteSale(s.id)">Supprimer</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

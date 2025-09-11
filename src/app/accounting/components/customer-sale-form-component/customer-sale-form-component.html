@@ -6,13 +6,19 @@
     <!-- Produit -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Produit</mat-label>
-      <mat-select formControlName="product" required>
+      <mat-select formControlName="product" required (selectionChange)="onProductChange($event.value)">
         @for (p of products; track p.id) {
           <mat-option [value]="p.id">{{ p.name }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
 
+    <!-- Stock du produit sélectionné -->
+    @if (selectedProduct) {
+      <div class="stock-info">
+        <p><strong>Stock disponible :</strong> {{ selectedProduct.stock }}</p>
+      </div>
+    }
     <!-- Type de vente -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Type de vente</mat-label>

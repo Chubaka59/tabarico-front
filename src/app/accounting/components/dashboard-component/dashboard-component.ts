@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule, CurrencyPipe} from '@angular/common';
 import {MatTableDataSource, MatTableModule} from '@angular/material/table';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {FormsModule} from '@angular/forms';
-import { DashboardService } from '../../services/dashboard.service'
-import { DashboardModel } from '../../../core/models/dashboard.model'
+import {DashboardService} from '../../services/dashboard.service'
+import {DashboardModel} from '../../../core/models/dashboard.model'
 import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core';
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
-import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MomentDateAdapter} from '@angular/material-moment-adapter';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatButton} from '@angular/material/button';
 
 export const MY_DATE_FORMATS = {
@@ -122,8 +121,10 @@ export class DashboardComponent implements OnInit {
         }
 
         this.dashboardService.updateUserAccounting(user).subscribe({
-          next: (updated) => console.log('Holiday sauvegardé ✅', updated),
-          error: (err) => this.showError("Erreur lors de la sauvegarde ❌")
+          error: (err) => {
+            console.log("Erreur lors de la mise à jour de la compta", err);
+            this.showError("Erreur lors de la sauvegarde ❌");
+          }
         });
       } else {
         this.showError("Veuillez renseigner une date de fin de congé 📅");
@@ -133,8 +134,10 @@ export class DashboardComponent implements OnInit {
       user.endOfHoliday = undefined;
 
       this.dashboardService.updateUserAccounting(user).subscribe({
-        next: (updated) => console.log('Holiday supprimé ✅', updated),
-        error: (err) => this.showError("Erreur lors de la suppression ❌")
+        error: (err) => {
+          console.log("Erreur lors de la mise à jour de la compta", err);
+          this.showError("Erreur lors de la suppression ❌");
+        }
       });
     }
   }

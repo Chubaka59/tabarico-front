@@ -1,15 +1,15 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
-import { UserModel } from '../../../core/models/user.model';
-import { UserListService } from '../../services/user-list.service';
-import { RoleModel } from '../../../core/models/role.model';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {Component, Inject, OnInit} from '@angular/core';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {CommonModule} from '@angular/common';
+import {UserModel} from '../../../core/models/user.model';
+import {UserListService} from '../../services/user-list.service';
+import {RoleModel} from '../../../core/models/role.model';
+import {MatSelectModule} from '@angular/material/select';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-form-dialog',
@@ -91,7 +91,7 @@ export class UserFormDialogComponent implements OnInit {
 
   updateUser(): void {
     if (this.userForm.invalid) return;
-    if (!this.data || typeof this.data.id !== 'number') {
+    if (!this.data) {
       this.snackBar.open('❌ ID utilisateur manquant', 'Fermer', {
         duration: 3000,
         panelClass: ['snackbar-error']

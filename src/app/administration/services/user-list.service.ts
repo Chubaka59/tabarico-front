@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { UserModel } from '../../core/models/user.model';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {UserModel} from '../../core/models/user.model';
 import {RoleModel} from '../../core/models/role.model';
 
 @Injectable({

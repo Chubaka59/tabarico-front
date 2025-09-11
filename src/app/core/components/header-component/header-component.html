@@ -13,10 +13,10 @@
       <a routerLink="/personalDashboard" routerLinkActive="active-link">Compta Personnelle</a>
       <a routerLink="/addExporterSale" routerLinkActive="active-link">Vente exportateur</a>
       @if (isCDI()) {
-        <a routerLink="/addCustomerSale"routerLinkActive="active-link">Vente client</a>
+        <a routerLink="/addCustomerSale" routerLinkActive="active-link">Vente client</a>
       }
       @if (isResponsable()) {
-        <a routerLink="/dashboard"routerLinkActive="active-link">Dashboard</a>
+        <a routerLink="/dashboard" routerLinkActive="active-link">Dashboard</a>
       }
     </div>
   }
@@ -35,6 +35,8 @@
       <div class="submenu">
         <a routerLink="/users" routerLinkActive="active-link">Utilisateurs</a>
         <a routerLink="/configuration" routerLinkActive="active-link">Configuration</a>
+        <a routerLink="/exporter-sales-history" routerLinkActive="active-link">Historique des ventes exportateurs</a>
+        <a routerLink="/customer-sales-history" routerLinkActive="active-link">Historique des ventes clients</a>
       </div>
     }
   }
@@ -43,7 +45,9 @@
   <a routerLink="/resetPassword" routerLinkActive="active-link">Changer de mot de passe</a>
   <a (click)="logout()">Se déconnecter</a>
 
-  <div class="user-info" *ngIf="userName">
-    Vous êtes connecté en tant que : <strong>{{ userName }}</strong>
-  </div>
+  @if (userName) {
+    <div class="user-info">
+      Vous êtes connecté en tant que : <strong>{{ userName }}</strong>
+    </div>
+  }
 </div>

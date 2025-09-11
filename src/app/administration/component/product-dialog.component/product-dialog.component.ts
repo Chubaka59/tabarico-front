@@ -1,13 +1,11 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle} from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
-import {ContractService} from '../../services/contract.service';
-import {ContractModel} from '../../../core/models/contract.model';
+import {Component, Inject} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {CommonModule} from '@angular/common';
 import {ProductService} from '../../services/product.service';
 import {ProductModel} from '../../../core/models/Product.model';
 

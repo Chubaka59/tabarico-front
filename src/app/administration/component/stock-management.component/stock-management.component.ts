@@ -1,19 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-import { MatCardModule } from '@angular/material/card';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatCardModule} from '@angular/material/card';
 import {ProductModel} from '../../../core/models/Product.model';
 import {StockTransactionModel} from '../../../core/models/stock-transaction.model';
 import {StockManagementService} from '../../services/stock-management.service';
 import {StockHistoryModel} from '../../../core/models/stock-history.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {ConsumableModel} from '../../../core/models/consumable.model';
 
 @Component({
@@ -79,7 +79,10 @@ export class StockManagementComponent implements OnInit {
   loadProducts(): void {
     this.stockService.getProducts().subscribe({
       next: (data: ProductModel[]) => (this.products = data),
-      error: (err: any) => this.showError('Erreur chargement produits'),
+      error: (err) => {
+        console.log("Erreur lors du chargement des produits", err);
+        this.showError('Erreur chargement produits');
+      },
     });
   }
 
@@ -97,7 +100,10 @@ export class StockManagementComponent implements OnInit {
         this.transactions = data;
         this.filteredTransactions = data;
       },
-      error: (err: any) => this.showError('Erreur chargement historique'),
+      error: (err) => {
+        console.log("Erreur lors du chargement de l'historique", err);
+        this.showError('Erreur chargement historique')
+      },
     });
   }
 

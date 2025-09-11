@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {
   PersonalDashboardComponent
 } from './accounting/components/personal-dashboard-component/personal-dashboard.component';
@@ -7,7 +7,9 @@ import {LoginComponent} from './core/components/login-component/login-component'
 import {
   ExporterSaleFormComponent
 } from './accounting/components/exporter-sale-form-component/exporter-sale-form-component';
-import { CustomerSaleFormComponent } from './accounting/components/customer-sale-form-component/customer-sale-form-component'
+import {
+  CustomerSaleFormComponent
+} from './accounting/components/customer-sale-form-component/customer-sale-form-component'
 import {DashboardComponent} from './accounting/components/dashboard-component/dashboard-component';
 import {
   StockManagementComponent
@@ -18,6 +20,12 @@ import {ConfigurationComponent} from './administration/component/configuration.c
 import {ResponsableGuard} from './core/guards/responsable.guard';
 import {CdiGuard} from './core/guards/cdi.guard';
 import {ForbiddenComponent} from './core/components/forbidden.component/forbidden.component';
+import {
+  ExporterSaleHistoryComponent
+} from './administration/component/exporter-sale-history.component/exporter-sale-history.component';
+import {
+  CustomerSaleHistoryComponent
+} from './administration/component/customer-sale-history.component/customer-sale-history.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -29,6 +37,8 @@ export const routes: Routes = [
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard, ResponsableGuard]},
   { path: 'resetPassword', component: ChangePasswordComponent, canActivate: [AuthGuard] },
   { path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuard, ResponsableGuard] },
+  { path: 'exporter-sales-history', component: ExporterSaleHistoryComponent, canActivate: [AuthGuard, ResponsableGuard] },
+  { path: 'customer-sales-history', component: CustomerSaleHistoryComponent, canActivate: [AuthGuard, ResponsableGuard] },
   {
     path: 'logout',
     resolve: { logout: () => { localStorage.removeItem('token');localStorage.removeItem('role'); return true;

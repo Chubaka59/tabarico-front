@@ -1,18 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
+  AbstractControl,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
-  Validators,
-  AbstractControl,
   ValidationErrors,
-  ValidatorFn
+  ValidatorFn,
+  Validators
 } from '@angular/forms';
-import { UserListService } from '../../services/user-list.service';
-import { MatInput } from '@angular/material/input';
-import { MatButton } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {UserListService} from '../../services/user-list.service';
+import {MatInput} from '@angular/material/input';
+import {MatButton} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 // ✅ Validator custom
 export const passwordMatchValidator: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {

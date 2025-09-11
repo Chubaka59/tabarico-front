@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { CustomerSaleService } from '../../services/customer-sale.service';
-import { AuthService } from '../../../core/services/auth.service';
+import {CustomerSaleService} from '../../services/customer-sale.service';
+import {AuthService} from '../../../core/services/auth.service';
 import {CommonModule} from '@angular/common';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatButtonModule} from '@angular/material/button';
-import { MatSelectModule } from '@angular/material/select';
-import { MatOptionModule } from '@angular/material/core';
+import {MatSelectModule} from '@angular/material/select';
+import {MatOptionModule} from '@angular/material/core';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {ProductModel} from '../../../core/models/Product.model';
 import {ContractModel} from '../../../core/models/contract.model';
@@ -30,11 +30,11 @@ import {Router} from '@angular/router';
 })
 export class CustomerSaleFormComponent implements OnInit {
   clientSaleForm!: FormGroup;
-
   products: ProductModel[] = [];
   saleTypes: { key: string, label: string }[] = [];
   contracts: ContractModel[] = [];
   calculated = false;
+  selectedProduct: ProductModel | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -176,5 +176,9 @@ export class CustomerSaleFormComponent implements OnInit {
         error: err => console.error('Erreur lors de l’ajout', err)
       });
     }
+  }
+
+  onProductChange(productId: number) {
+    this.selectedProduct = this.products.find(p => p.id === productId) || null;
   }
 }

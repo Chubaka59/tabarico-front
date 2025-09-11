@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
-  MatCell, MatCellDef,
+  MatCell,
+  MatCellDef,
   MatColumnDef,
   MatHeaderCell,
-  MatHeaderCellDef, MatHeaderRow, MatHeaderRowDef, MatRow, MatRowDef,
+  MatHeaderCellDef,
+  MatHeaderRow,
+  MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
   MatTable
 } from '@angular/material/table';
-import { MatSort } from '@angular/material/sort';
-import {CurrencyPipe, DatePipe, DecimalPipe, NgClass, NgIf} from '@angular/common';
-import { AuthService } from '../../../core/services/auth.service';
-import { PersonalDashboardService } from '../../services/personal-dashboard.service';
-import { CustomerSale } from '../../../core/models/customer-sales.model';
-import { ExporterSale } from '../../../core/models/exporter-sales.model';
-import { PersonalDashboardModel } from '../../../core/models/personal-dashboard.model';
+import {MatSort} from '@angular/material/sort';
+import {CurrencyPipe, DatePipe, NgClass} from '@angular/common';
+import {PersonalDashboardService} from '../../services/personal-dashboard.service';
+import {CustomerSale} from '../../../core/models/customer-sales.model';
+import {ExporterSale} from '../../../core/models/exporter-sales.model';
+import {PersonalDashboardModel} from '../../../core/models/personal-dashboard.model';
 
 @Component({
   selector: 'app-personnal-dashboard-component',
@@ -52,8 +56,7 @@ export class PersonalDashboardComponent implements OnInit {
   exporterQuota = false;
 
   constructor(
-    private saleService: PersonalDashboardService,
-    private auth: AuthService
+    private saleService: PersonalDashboardService
   ) {}
 
   ngOnInit(): void {

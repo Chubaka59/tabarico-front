@@ -28,11 +28,6 @@
     mat-form-field {
       width: 100%;
 
-      .mat-mdc-text-field-wrapper {
-        background-color: #2a2a2a;
-        border-radius: 8px;
-      }
-
       mat-label {
         color: #bdbdbd;
       }
@@ -65,45 +60,12 @@
   }
 }
 
-/* ✅ Style de l’historique (même que dashboard) */
-.history-container {
-  margin-top: 3rem;
-
-  h2 {
-    margin-bottom: 1rem;
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-  mat-form-field {
-    margin-bottom: 1rem;
-    min-width: 250px;
-  }
-
-  .custom-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: #1e1e1e;
-
-    th {
-      background-color: #2a2a2a;
-      color: #fff;
-      font-weight: 600;
-      text-align: left;
-      padding: 0.75rem;
-    }
-
-    td {
-      padding: 0.75rem;
-      color: #ddd;
-    }
-
-    tr:nth-child(even) {
-      background-color: #242424;
-    }
-
-    tr:hover {
-      background-color: #333;
-    }
-  }
+.stock-info {
+  text-align: center;
+  font-size: 15px;
+  color: #bdbdbd;
+  background-color: #2a2a2a;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  margin: -0.5rem 0 0.5rem 0; // ajuste l'espace avec les champs voisins
 }

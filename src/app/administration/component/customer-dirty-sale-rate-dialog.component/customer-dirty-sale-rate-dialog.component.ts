@@ -1,16 +1,13 @@
-import { Component, Inject } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import {MatDialogRef, MAT_DIALOG_DATA, MatDialogTitle} from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { CommonModule } from '@angular/common';
-import {ContractService} from '../../services/contract.service';
-import {ContractModel} from '../../../core/models/contract.model';
+import {Component, Inject} from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialogTitle} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {CommonModule} from '@angular/common';
 import {CustomerDirtySaleRateService} from '../../services/customer-dirty-sale-rate.service';
 import {CustomerDirtySaleRateModel} from '../../../core/models/customer-dirty-sale-rate.model';
-import {ProductModel} from '../../../core/models/Product.model';
 
 @Component({
   selector: 'app-customer-dirty-sale-rate-dialog.component',

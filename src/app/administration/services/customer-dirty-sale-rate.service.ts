@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
 import {CustomerDirtySaleRateModel} from '../../core/models/customer-dirty-sale-rate.model';
-import {ProductModel} from '../../core/models/Product.model';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerDirtySaleRateService {

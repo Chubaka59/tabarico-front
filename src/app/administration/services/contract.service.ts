@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {ContractModel} from '../../core/models/contract.model';
 import {Observable} from 'rxjs';
 

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatTableModule } from '@angular/material/table';
+import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatCardModule} from '@angular/material/card';
+import {MatButtonModule} from '@angular/material/button';
+import {MatTableModule} from '@angular/material/table';
 import {RoleModel} from '../../../core/models/role.model';
 import {ContractModel} from '../../../core/models/contract.model';
 import {ProductModel} from '../../../core/models/Product.model';

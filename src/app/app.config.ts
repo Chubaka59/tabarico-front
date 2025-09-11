@@ -1,9 +1,10 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { authInterceptor } from './core/interceptors/auth.interceptor'
+import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChangeDetection} from '@angular/core';
+import {provideRouter} from '@angular/router';
+import {authInterceptor} from './core/interceptors/auth.interceptor'
 
-import { routes } from './app.routes';
+import {routes} from './app.routes';
 import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {provideNativeDateAdapter} from '@angular/material/core';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +13,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(
       withInterceptors([authInterceptor])
-    )
+    ),
+    provideNativeDateAdapter()
   ]
 };

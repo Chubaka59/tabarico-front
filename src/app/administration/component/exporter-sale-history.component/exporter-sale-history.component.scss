@@ -1,0 +1,21 @@
+h2 {
+  margin: 1.5rem 0; // espace en haut et en bas
+  font-size: 2rem;  // un peu plus grand si tu veux
+  font-weight: bold;
+}
+
+/* Bouton "Supprimer" */
+button.delete-btn {
+  color: #d32f2f;
+}
+.mat-column-date,
+.mat-column-user,
+.mat-column-quantity,
+.mat-column-level,
+.mat-column-employeeAmount,
+.mat-column-companyAmount,
+.mat-column-action {
+  flex: 1; /* chaque colonne prend une part égale */
+  text-align: center; /* pour centrer le texte */
+}
+

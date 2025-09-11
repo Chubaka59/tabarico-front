@@ -1,15 +1,15 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-import { MatButtonModule } from '@angular/material/button';
-import { MatDialog } from '@angular/material/dialog';
-import { UserModel } from '../../../core/models/user.model';
-import { UserFormDialogComponent } from '../user-form-dialog.component/user-form-dialog.component';
-import { UserListService } from '../../services/user-list.service';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSort, MatSortModule } from '@angular/material/sort';
-import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDialog} from '@angular/material/dialog';
+import {UserModel} from '../../../core/models/user.model';
+import {UserFormDialogComponent} from '../user-form-dialog.component/user-form-dialog.component';
+import {UserListService} from '../../services/user-list.service';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import {MatSort, MatSortModule} from '@angular/material/sort';
+import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-list-component',
@@ -41,11 +41,6 @@ export class UserListComponent implements OnInit {
   ngOnInit(): void {
     this.loadUsers();
   }
-
-  ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-  }
-
   loadUsers(): void {
     this.userService.getUsers().subscribe({
       next: (data: UserModel[]) => {
