@@ -1,4 +1,5 @@
 export interface StockTransactionModel {
-  productId: number;
+  productId?: number;
+  consumableId?: number;
   quantity: number;
 }

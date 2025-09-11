@@ -11,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MAT_DATE_FORMATS, DateAdapter, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {MatButton} from '@angular/material/button';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -34,7 +35,8 @@ export const MY_DATE_FORMATS = {
     CurrencyPipe,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    MatButton
   ],
   templateUrl: './dashboard-component.html',
   styleUrl: './dashboard-component.scss',
@@ -83,17 +85,20 @@ export class DashboardComponent implements OnInit {
               private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
+    this.loadData();
+  }
+
+  private loadData(): void {
     this.dashboardService.getUserAccounting().subscribe({
       next: data => this.dataSource.data = data,
-      error: err => {
-        this.showError("Erreur lors du chargement des données 📡");
-      }
+      error: () => this.showError("Erreur lors du chargement des données 📡")
     });
   }
 
   onToggleChange(user: DashboardModel) {
     this.dashboardService.updateUserAccounting(user).subscribe({
-      error: (err) => this.showError("Erreur lors de la sauvegarde ❌")
+      next: () => this.loadData(), // 🔄 recharge
+      error: () => this.showError("Erreur lors de la sauvegarde ❌")
     });
   }
 
@@ -121,7 +126,7 @@ export class DashboardComponent implements OnInit {
           error: (err) => this.showError("Erreur lors de la sauvegarde ❌")
         });
       } else {
-       this.showError("Veuillez renseigner une date de fin de congé 📅");
+        this.showError("Veuillez renseigner une date de fin de congé 📅");
       }
     } else {
       // Cas où la case est décochée
@@ -134,4 +139,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  resetCompta(): void {
+    if (confirm('Voulez-vous vraiment reset la compta ?')) {
+      this.dashboardService.resetAccounting().subscribe({
+        next: () => {
+          this.snackBar.open("Compta réinitialisée ✅", 'Fermer', {duration: 4000});
+          this.loadData(); // 🔄 recharge la table
+        },
+        error: () => this.showError("Erreur lors de la réinitialisation ❌")
+      });
+    }
+  }
 }

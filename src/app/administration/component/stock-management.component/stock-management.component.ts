@@ -14,6 +14,7 @@ import {StockTransactionModel} from '../../../core/models/stock-transaction.mode
 import {StockManagementService} from '../../services/stock-management.service';
 import {StockHistoryModel} from '../../../core/models/stock-history.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {ConsumableModel} from '../../../core/models/consumable.model';
 
 @Component({
   selector: 'app-stock-management.component',
@@ -36,14 +37,17 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class StockManagementComponent implements OnInit {
   stockForm: FormGroup;
   products: ProductModel[] = [];
+  consumables: ConsumableModel[] = [];
   transactions: StockHistoryModel[] = []
   filteredTransactions: StockHistoryModel[] = [];
+  isResponsable = false;
 
   displayedColumns = [
     'date', 'product', 'type', 'quantity', 'user'
   ];
 
   selectedProduct: ProductModel | null = null;
+  selectedConsumable: ConsumableModel | null = null;
   filterDate: Date = new Date();
 
   constructor(private fb: FormBuilder,
@@ -56,12 +60,18 @@ export class StockManagementComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const userRoles = localStorage.getItem('role') || '[]';
+    this.isResponsable = userRoles.includes('Responsable');
+
     this.stockForm = this.fb.group({
-      product: [null, Validators.required],
+      item: [null, Validators.required], // ✅ remplace product par item
       adjustment: [null, [Validators.required, Validators.min(-99999)]],
     });
 
-    this.loadProducts();
+    if (this.isResponsable) {
+      this.loadProducts();
+    }
+    this.loadConsumables();
     this.loadTransactions();
   }
 
@@ -70,6 +80,13 @@ export class StockManagementComponent implements OnInit {
     this.stockService.getProducts().subscribe({
       next: (data: ProductModel[]) => (this.products = data),
       error: (err: any) => this.showError('Erreur chargement produits'),
+    });
+  }
+
+  loadConsumables(): void {
+    this.stockService.getConsumables().subscribe({
+      next: (data: any[]) => this.consumables = data,
+      error: () => this.showError('Erreur chargement consommables')
     });
   }
 
@@ -84,40 +101,57 @@ export class StockManagementComponent implements OnInit {
     });
   }
 
-  onProductChange(productId: number): void {
-    this.selectedProduct = this.products.find((p) => p.id === productId) || null;
+  onItemChange(value: { type: 'product' | 'consumable'; id: number }): void {
+    if (value.type === 'product') {
+      this.selectedProduct = this.products.find(p => p.id === value.id) || null;
+      this.selectedConsumable = null;
+    } else {
+      this.selectedConsumable = this.consumables.find(c => c.id === value.id) || null;
+      this.selectedProduct = null;
+    }
   }
 
   updateStock(): void {
-    if (!this.stockForm.valid) {
-      return;
-    }
+    if (!this.stockForm.valid) return;
 
-    const { product, adjustment } = this.stockForm.value;
+    const { adjustment } = this.stockForm.value;
 
-    // Création d'une transaction conforme au modèle
     const transaction: StockTransactionModel = {
-      productId: product,
+      productId: this.selectedProduct ? this.selectedProduct.id : undefined,
+      consumableId: this.selectedConsumable ? this.selectedConsumable.id : undefined,
       quantity: adjustment
     };
 
-    console.log(transaction);
-
     this.stockService.updateStock(transaction).subscribe({
-      next: (saved: StockTransactionModel) => {
+      next: () => {
         this.showError('Stock mis à jour ✅');
         this.loadProducts();
+        this.loadConsumables();
         this.loadTransactions();
         this.stockForm.reset();
         this.selectedProduct = null;
-        this.filterTransactions();
+        this.selectedConsumable = null;
       },
-      error: (err: any) => this.showError('Erreur mise à jour stock'),
+      error: () => this.showError('Erreur mise à jour stock'),
     });
   }
 
   filterTransactions(): void {
-    this.loadTransactions(); // recharge depuis le back avec la nouvelle date
+    if (!this.filterDate) return;
+
+    // Force la date locale pour éviter le décalage UTC
+    const localDate = new Date(
+      this.filterDate.getFullYear(),
+      this.filterDate.getMonth(),
+      this.filterDate.getDate()
+    );
+
+    this.stockService.getTransactions(localDate).subscribe({
+      next: (data: StockHistoryModel[]) => {
+        this.filteredTransactions = data;
+      },
+      error: () => this.showError('Erreur chargement historique'),
+    });
   }
 
   movementLabels: { [key: string]: string } = {

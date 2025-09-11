@@ -49,7 +49,7 @@ export class UserFormDialogComponent implements OnInit {
       error: (err) => {
         console.error('Erreur récupération rôles', err);
         this.snackBar.open('❌ Erreur lors du chargement des rôles', 'Fermer', {
-          duration: 3000,
+          duration: 4000,
           panelClass: ['snackbar-error']
         });
       },
@@ -74,7 +74,7 @@ export class UserFormDialogComponent implements OnInit {
     this.userService.createUser(formData).subscribe({
       next: () => {
         this.snackBar.open('✅ Utilisateur créé avec succès', 'Fermer', {
-          duration: 3000,
+          duration: 4000,
           panelClass: ['snackbar-success']
         });
         this.dialogRef.close(true);

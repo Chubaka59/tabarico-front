@@ -4,17 +4,31 @@
 
     <!-- Produit -->
     <mat-form-field appearance="outline" class="full-width">
-      <mat-label>Produit</mat-label>
-      <mat-select formControlName="product" required (selectionChange)="onProductChange($event.value)">
-        @for (p of products; track p.id) {
-          <mat-option [value]="p.id">{{ p.name }}</mat-option>
-        }
+      <mat-label>Produit / Consommable</mat-label>
+      <mat-select formControlName="item" required (selectionChange)="onItemChange($event.value)">
+        <mat-optgroup label="Produits">
+          <mat-option *ngFor="let p of products" [value]="{ type: 'product', id: p.id }">
+            {{ p.name }}
+          </mat-option>
+        </mat-optgroup>
+
+        <mat-optgroup label="Consommables">
+          <mat-option *ngFor="let c of consumables" [value]="{ type: 'consumable', id: c.id }">
+            {{ c.name }}
+          </mat-option>
+        </mat-optgroup>
       </mat-select>
     </mat-form-field>
 
-    <!-- Stock actuel -->
-    <p *ngIf="selectedProduct"><strong>Stock actuel :</strong> {{ selectedProduct.stock }}</p>
 
+
+    <!-- Stock actuel -->
+    @if (selectedProduct || selectedConsumable) {
+      <p>
+        <strong>Quantité actuelle :</strong>
+        {{ selectedProduct?.stock || selectedConsumable?.quantity }}
+      </p>
+    }
     <!-- Quantité -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Quantité (+ pour ajout, - pour retrait)</mat-label>
@@ -55,8 +69,10 @@
     </ng-container>
 
     <ng-container matColumnDef="product">
-      <th mat-header-cell *matHeaderCellDef>Produit</th>
-      <td mat-cell *matCellDef="let t">{{ t.product.name }}</td>
+      <th mat-header-cell *matHeaderCellDef>Objet</th>
+      <td mat-cell *matCellDef="let t">
+        {{ t.product?.name || t.consumable?.name }}
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="type">

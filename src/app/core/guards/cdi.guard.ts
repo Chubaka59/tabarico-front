@@ -10,7 +10,7 @@ export class CdiGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-    if (this.authService.isCDI()) {
+    if (this.authService.isCDI() || this.authService.isResponsable()) {
       return true;
     }
     this.router.navigate(['/forbidden']);

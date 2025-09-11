@@ -67,16 +67,28 @@ export class UserListComponent implements OnInit {
   }
 
   openCreateUser(): void {
-    this.dialog.open(UserFormDialogComponent, {
+    const dialogRef = this.dialog.open(UserFormDialogComponent, {
       width: '500px',
       data: null,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadUsers(); // 🔄 recharge la liste si un utilisateur a été créé
+      }
     });
   }
 
   editUser(user: UserModel): void {
-    this.dialog.open(UserFormDialogComponent, {
+    const dialogRef = this.dialog.open(UserFormDialogComponent, {
       width: '500px',
       data: user,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.loadUsers(); // 🔄 recharge la liste si un utilisateur a été créé
+      }
     });
   }
 
@@ -86,14 +98,14 @@ export class UserListComponent implements OnInit {
         next: () => {
           this.loadUsers();
           this.snackBar.open('✅ Utilisateur supprimé', 'Fermer', {
-            duration: 3000,
+            duration: 4000,
             panelClass: ['snackbar-success']
           });
         },
         error: (err: any) => {
           console.error('Erreur suppression utilisateur', err);
           this.snackBar.open('❌ Erreur lors de la suppression de l’utilisateur', 'Fermer', {
-            duration: 3000,
+            duration: 4000,
             panelClass: ['snackbar-error']
           });
         },

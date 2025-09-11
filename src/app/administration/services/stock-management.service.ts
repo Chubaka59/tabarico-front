@@ -18,11 +18,19 @@ export class StockManagementService {
     return this.http.get<ProductModel[]>(`${this.apiUrl}/products`);
   }
 
+  getConsumables(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/consumables`);
+  }
+
   getTransactions(date?: Date): Observable<StockHistoryModel[]> {
     let params = new HttpParams();
     if (date) {
-      // format en yyyy-MM-dd (classique pour Spring Boot)
-      const formatted = date.toISOString().split('T')[0];
+      // Format YYYY-MM-DD en utilisant la date locale
+      const year = date.getFullYear();
+      const month = (date.getMonth() + 1).toString().padStart(2, '0'); // mois commence à 0
+      const day = date.getDate().toString().padStart(2, '0');
+
+      const formatted = `${year}-${month}-${day}`;
       params = params.set('date', formatted);
     }
 

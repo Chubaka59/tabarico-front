@@ -23,7 +23,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'personalDashboard', component: PersonalDashboardComponent, canActivate: [AuthGuard] },
   { path: 'addExporterSale', component: ExporterSaleFormComponent, canActivate: [AuthGuard] },
-  { path: 'addCustomerSale', component: CustomerSaleFormComponent, canActivate: [AuthGuard, ResponsableGuard, CdiGuard] },
+  { path: 'addCustomerSale', component: CustomerSaleFormComponent, canActivate: [AuthGuard, CdiGuard] },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard, ResponsableGuard] },
   { path: 'modifyStock', component: StockManagementComponent, canActivate: [AuthGuard, CdiGuard] },
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard, ResponsableGuard]},
@@ -31,7 +31,9 @@ export const routes: Routes = [
   { path: 'configuration', component: ConfigurationComponent, canActivate: [AuthGuard, ResponsableGuard] },
   {
     path: 'logout',
-    resolve: { logout: () => { localStorage.removeItem('token'); return true; } },
+    resolve: { logout: () => { localStorage.removeItem('token');localStorage.removeItem('role'); return true;
+      }
+    },
     redirectTo: 'login',
     pathMatch: 'full'
   },

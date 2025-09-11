@@ -18,4 +18,8 @@ export class DashboardService {
   updateUserAccounting(user: DashboardModel): Observable<DashboardModel> {
     return this.http.put<DashboardModel>(`${this.apiUrl}dashboard/${user.username}`, user);
   }
+
+  resetAccounting() {
+    return this.http.get<void>(`${this.apiUrl}users/reset-accounting`);
+  }
 }
