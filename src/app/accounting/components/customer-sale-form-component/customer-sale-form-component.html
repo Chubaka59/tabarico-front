@@ -74,7 +74,21 @@
       />
     </mat-form-field>
 
-    <!-- Bouton -->
+    @if (isPatron()) {
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Utilisateur</mat-label>
+        <mat-select formControlName="userId">
+          <mat-option [value]="null">Aucun utilisateur</mat-option>
+          @for (u of users; track u.id) {
+            <mat-option [value]="u.id">{{ u.firstName }} {{ u.lastName }}</mat-option>
+          }
+        </mat-select>
+        <mat-hint align="start">
+          Uniquement si vous souhaitez entrer la vente pour quelqu'un
+        </mat-hint>
+      </mat-form-field>
+    }
+
     <!-- Bouton -->
     <button mat-raised-button color="primary" type="submit" [disabled]="clientSaleForm.invalid || !calculated">
       Ajouter la vente

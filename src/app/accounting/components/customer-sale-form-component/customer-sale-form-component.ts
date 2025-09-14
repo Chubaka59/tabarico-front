@@ -12,6 +12,8 @@ import {MatCheckbox} from '@angular/material/checkbox';
 import {ProductModel} from '../../../core/models/Product.model';
 import {ContractModel} from '../../../core/models/contract.model';
 import {Router} from '@angular/router';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserListService} from '../../../administration/services/user-list.service';
 
 @Component({
   selector: 'app-customer-sale-form-component',
@@ -35,16 +37,19 @@ export class CustomerSaleFormComponent implements OnInit {
   contracts: ContractModel[] = [];
   calculated = false;
   selectedProduct: ProductModel | null = null;
+  users: any[] = [];
 
   constructor(
     private fb: FormBuilder,
     private customerSaleService: CustomerSaleService,
+    private userService: UserListService,
     private auth: AuthService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.clientSaleForm = this.fb.group({
+      userId: [null],
       product: ['', Validators.required],
       typeOfSale: ['', Validators.required],
       contract: [null],
@@ -57,11 +62,11 @@ export class CustomerSaleFormComponent implements OnInit {
     this.loadProducts();
     this.loadSaleTypes();
     this.loadContracts();
+    this.loadUsers();
 
-    // 👉 Désactiver contrat si typeOfSale = dirtyMoney
+    // Désactiver contrat si typeOfSale = 'dirtyMoney'
     this.clientSaleForm.get('typeOfSale')?.valueChanges.subscribe((type: string) => {
       const contractControl = this.clientSaleForm.get('contract');
-
       if (type === 'dirtyMoney') {
         contractControl?.disable({ emitEvent: false });
         contractControl?.setValue(null, { emitEvent: false });
@@ -70,17 +75,19 @@ export class CustomerSaleFormComponent implements OnInit {
       }
     });
 
-    // État initial des champs
+    // État initial des champs selon calculateByPrice
     this.toggleInputs(this.clientSaleForm.get('calculateByPrice')!.value);
 
     // Verrouiller/déverrouiller quand la checkbox change
-    this.clientSaleForm.get('calculateByPrice')!.valueChanges.subscribe((calcByPrice: boolean) => {
+    this.clientSaleForm.get('calculateByPrice')!.valueChanges.subscribe(calcByPrice => {
       this.toggleInputs(calcByPrice);
     });
 
-    // 🔄 Dès qu’un champ pertinent change → reset le flag "calculated"
-    this.clientSaleForm.valueChanges.subscribe(() => {
-      this.calculated = false;
+    // 🔄 Réinitialiser `calculated` uniquement pour les champs pertinents
+    ['product', 'typeOfSale', 'contract', 'calculateByPrice', 'quantity', 'price'].forEach(controlName => {
+      this.clientSaleForm.get(controlName)?.valueChanges.subscribe(() => {
+        this.calculated = false;
+      });
     });
   }
 
@@ -164,6 +171,14 @@ export class CustomerSaleFormComponent implements OnInit {
     this.customerSaleService.getContracts().subscribe(data => this.contracts = data);
   }
 
+  loadUsers(): void {
+    // Charger la liste des utilisateurs au démarrage
+    this.userService.getUsers().subscribe({
+      next: data => this.users = data,
+      error: err => console.error('Erreur chargement utilisateurs', err)
+    });
+  }
+
   onSubmit(): void {
     if (this.clientSaleForm.valid) {
       const username = this.auth.getUserInfo()?.username;
@@ -173,12 +188,22 @@ export class CustomerSaleFormComponent implements OnInit {
           alert('Vente ajoutée avec succès');
           this.router.navigate(['/personalDashboard']);
         },
-        error: err => console.error('Erreur lors de l’ajout', err)
+        error: err => {
+          console.error('Erreur lors de l’ajout de la vente client', err);
+          this.snackBar.open('❌ Erreur lors de l’ajout de la vente client', 'Fermer', {
+            duration: 5000,
+            panelClass: ['snackbar-error']
+          });
+        }
       });
     }
   }
 
   onProductChange(productId: number) {
     this.selectedProduct = this.products.find(p => p.id === productId) || null;
+  }
+
+  isPatron(): boolean {
+    return this.auth.isPatron();
   }
 }
