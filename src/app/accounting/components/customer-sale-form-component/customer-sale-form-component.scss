@@ -69,3 +69,18 @@
   border-radius: 8px;
   margin: -0.5rem 0 0.5rem 0; // ajuste l'espace avec les champs voisins
 }
+
+.calc-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; // ✅ met la checkbox à gauche et le bouton à droite
+  width: 100%;
+
+  mat-checkbox {
+    color: #fff;
+  }
+
+  button {
+    margin-left: auto; // ✅ pousse le bouton à droite
+  }
+}
