@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {tap} from 'rxjs';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8080/auth';
+  private apiUrl = environment.apiUrl;
   private role: string | null = null;
 
   constructor(private http: HttpClient) {
@@ -14,7 +15,7 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/login`, { username, password })
+    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/auth/login`, { username, password })
       .pipe(
         tap(response => {
           this.setRole(response.role)

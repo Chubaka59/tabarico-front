@@ -2,16 +2,17 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {PersonalDashboardModel} from '../../core/models/personal-dashboard.model';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PersonalDashboardService {
-  private apiUrl = 'http://localhost:8080/';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
   getPersonalDashboardData(): Observable<PersonalDashboardModel> {
-    return this.http.get<PersonalDashboardModel>(`${this.apiUrl}personalDashboard`);
+    return this.http.get<PersonalDashboardModel>(`${this.apiUrl}/personalDashboard`);
   }
 }
