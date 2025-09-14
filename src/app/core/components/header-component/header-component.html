@@ -34,9 +34,11 @@
     @if (openMenu === 'admin') {
       <div class="submenu">
         <a routerLink="/users" routerLinkActive="active-link">Utilisateurs</a>
-        <a routerLink="/configuration" routerLinkActive="active-link">Configuration</a>
-        <a routerLink="/exporter-sales-history" routerLinkActive="active-link">Historique des ventes exportateurs</a>
-        <a routerLink="/customer-sales-history" routerLinkActive="active-link">Historique des ventes clients</a>
+        @if (isPatron()) {
+          <a routerLink="/configuration" routerLinkActive="active-link">Configuration</a>
+          <a routerLink="/exporter-sales-history" routerLinkActive="active-link">Historique des ventes exportateurs</a>
+          <a routerLink="/customer-sales-history" routerLinkActive="active-link">Historique des ventes clients</a>
+        }
       </div>
     }
   }

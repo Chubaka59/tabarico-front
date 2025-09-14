@@ -73,4 +73,9 @@ export class AuthService {
   isCDI(): boolean {
     return this.role === 'CDI';
   }
+
+  isPatron(): boolean {
+    return this.role === 'Patron';
+  }
+
 }

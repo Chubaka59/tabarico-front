@@ -108,24 +108,6 @@ export class ConfigurationComponent implements OnInit {
       }
     });
   }
-  deleteRole(role: RoleModel) {
-    if (!confirm(`Voulez-vous vraiment supprimer le rôle "${role.name}" ?`)) {
-      return;
-    }
-
-    this.roleService.delete(role.id).subscribe({
-      next: () => {
-        this.snack.open('Rôle supprimé avec succès', 'Fermer', { duration: 4000 });
-        this.loadRoles();
-      },
-      error: (err) => {
-        console.error('Erreur suppression rôle', err);
-        this.snack.open('Erreur lors de la suppression du rôle', 'Fermer', { duration: 4000 });
-      }
-    });
-  }
-
-
 
   addContract() {
     const dialogRef = this.dialog.open(ContractDialogComponent, {
