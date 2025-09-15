@@ -54,6 +54,7 @@ export class PersonalDashboardComponent implements OnInit {
   dirtyMoneySalaryPreviousWeek = 0;
   quota = false;
   exporterQuota = false;
+  topSellers: { name: string; quantity: number, reward: number }[] = [];
 
   constructor(
     private saleService: PersonalDashboardService
@@ -71,7 +72,9 @@ export class PersonalDashboardComponent implements OnInit {
         this.cleanMoneySalaryPreviousWeek = data.cleanMoneySalaryPreviousWeek;
         this.dirtyMoneySalaryPreviousWeek = data.dirtyMoneySalaryPreviousWeek;
         this.quota = data.quota;
-        this.exporterQuota = data.exporterQuota;},
+        this.exporterQuota = data.exporterQuota;
+        this.topSellers = data.topSellers;
+        },
       error: err => console.error('Erreur de chargement des ventes', err)
     });
   }

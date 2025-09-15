@@ -1,4 +1,35 @@
 <div class="dashboard">
+  <!-- 🏆 Podium -->
+  <h2>Top 3 des vendeurs</h2>
+  <div class="podium">
+    <div class="podium-place second" >
+      <div class="rank">🥈 2</div>
+      @if (topSellers?.[1]) {
+        <div class="name">{{ topSellers[1].name }}</div>
+        <div class="quantity">{{ topSellers[1].quantity }}</div>
+        <div class="reward">🎁 Récompense : {{ topSellers[1].reward | currency:'USD' }}</div>
+      }
+    </div>
+
+    <div class="podium-place first" >
+      <div class="rank">🥇 1</div>
+      @if (topSellers?.[0]) {
+        <div class="name">{{ topSellers[0].name }}</div>
+        <div class="quantity">{{ topSellers[0].quantity }}</div>
+        <div class="reward">🎁 Récompense : {{ topSellers[0].reward | currency:'USD' }}</div>
+      }
+    </div>
+
+    <div class="podium-place third">
+      <div class="rank">🥉 3</div>
+      @if (topSellers?.[2]) {
+        <div class="name">{{ topSellers[2].name }}</div>
+        <div class="quantity">{{ topSellers[2].quantity }}</div>
+        <div class="reward">🎁 Récompense : {{ topSellers[2].reward | currency:'USD' }}</div>
+      }
+    </div>
+  </div>
+
   <h2>Compta perso</h2>
 
   <div class="card-grid">

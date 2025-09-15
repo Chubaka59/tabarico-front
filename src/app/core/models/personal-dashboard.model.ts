@@ -10,4 +10,5 @@ export interface PersonalDashboardModel {
   exporterQuota: boolean;
   customerSaleDtoList: CustomerSale[];
   exporterSaleDtoList: ExporterSale[];
+  topSellers: { name: string; quantity: number, reward: number }[];
 }
