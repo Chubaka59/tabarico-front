@@ -23,4 +23,12 @@ export class DashboardService {
   resetAccounting() {
     return this.http.get<void>(`${this.apiUrl}/users/reset-accounting`);
   }
+
+  setSalesBlocked(blocked: boolean): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/dashboard/sales-block?blocked=${blocked}`, {});
+  }
+
+  getSalesBlocked(): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/dashboard/sales-block`);
+  }
 }

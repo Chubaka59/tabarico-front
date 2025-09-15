@@ -14,6 +14,7 @@ import {ContractModel} from '../../../core/models/contract.model';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {UserListService} from '../../../administration/services/user-list.service';
+import {DashboardService} from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-customer-sale-form-component',
@@ -38,10 +39,12 @@ export class CustomerSaleFormComponent implements OnInit {
   calculated = false;
   selectedProduct: ProductModel | null = null;
   users: any[] = [];
+  salesBlocked = false;
 
   constructor(
     private fb: FormBuilder,
     private customerSaleService: CustomerSaleService,
+    private dashboardService: DashboardService,
     private userService: UserListService,
     private auth: AuthService,
     private router: Router,
@@ -56,6 +59,22 @@ export class CustomerSaleFormComponent implements OnInit {
       calculateByPrice: [false],
       quantity: [0, [Validators.min(1), Validators.pattern(/^\d+$/)]],
       price: [0, [Validators.min(1), Validators.pattern(/^\d+$/)]]
+    });
+
+    // Récupérer l'état du blocage des ventes depuis le backend
+    this.dashboardService.getSalesBlocked().subscribe({
+      next: blocked => {
+        this.salesBlocked = blocked;
+
+        // Afficher un message à l’utilisateur
+        if (blocked) {
+          this.snackBar.open('❌ Les ventes sont actuellement bloquées', 'Fermer', {
+            duration: 4000,
+            panelClass: ['snackbar-error']
+          });
+        }
+      },
+      error: err => console.error('Erreur récupération état ventes bloquées', err)
     });
 
     // Charger les données backend

@@ -3,10 +3,19 @@
     <h2>Nouvelle vente exportateur</h2>
 
     <form class="exporter-form" [formGroup]="exporterSaleForm" (ngSubmit)="onSubmit()">
+      <!-- Overlay si ventes bloquées -->
+      @if (salesBlocked) {
+      <div class="form-overlay">
+        <div class="overlay-message">
+          ❌ Les ventes sont actuellement bloquées
+        </div>
+      </div>
+      }
+
       <!-- Quantité -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Quantité</mat-label>
-        <input matInput type="number" formControlName="quantity" required>
+        <input matInput type="number" formControlName="quantity" [disabled]="salesBlocked" required>
         @if (exporterSaleForm.get('quantity')?.hasError('required')) {
           <mat-error>La quantité est obligatoire</mat-error>
         }
@@ -18,7 +27,7 @@
       <!-- Niveau -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Niveau</mat-label>
-        <input matInput type="number" formControlName="level" required>
+        <input matInput type="number" formControlName="level" [disabled]="salesBlocked" required>
         <mat-hint align="start">
           T → /skills en jeu si vous ne vous souvenez plus de votre niveau
         </mat-hint>
@@ -33,7 +42,7 @@
       @if (isPatron()) {
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Utilisateur</mat-label>
-          <mat-select formControlName="userId">
+          <mat-select formControlName="userId" [disabled]="salesBlocked">
             <mat-option [value]="null">Aucun utilisateur</mat-option>
             @for (u of users; track u.id) {
               <mat-option [value]="u.id">{{ u.firstName }} {{ u.lastName }}</mat-option>
@@ -46,7 +55,7 @@
       }
 
       <!-- Bouton -->
-      <button mat-raised-button color="primary" type="submit" [disabled]="exporterSaleForm.invalid">
+      <button mat-raised-button color="primary" type="submit" [disabled]="exporterSaleForm.invalid || salesBlocked">
         Ajouter la vente
       </button>
     </form>

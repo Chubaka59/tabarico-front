@@ -45,6 +45,7 @@ export const MY_DATE_FORMATS = {
   ]
 })
 export class DashboardComponent implements OnInit {
+  salesBlocked = false;
   headerRow1 = [
     'poste', 'username',
     'venteClientGroup',
@@ -85,12 +86,20 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.loadSalesBlocked();
   }
 
   private loadData(): void {
     this.dashboardService.getUserAccounting().subscribe({
       next: data => this.dataSource.data = data,
       error: () => this.showError("Erreur lors du chargement des données 📡")
+    });
+  }
+
+  loadSalesBlocked(): void {
+    this.dashboardService.getSalesBlocked().subscribe({
+      next: (blocked: boolean) => this.salesBlocked = blocked,
+      error: err => console.error('Erreur récupération état blocage ventes', err)
     });
   }
 
@@ -152,5 +161,26 @@ export class DashboardComponent implements OnInit {
         error: () => this.showError("Erreur lors de la réinitialisation ❌")
       });
     }
+  }
+
+  onSalesBlockChange(event: any) {
+    this.dashboardService.setSalesBlocked(this.salesBlocked).subscribe({
+      next: () => {
+        const message = this.salesBlocked
+          ? '❌ Les ventes sont maintenant bloquées'
+          : '✅ Les ventes sont maintenant autorisées';
+        this.snackBar.open(message, 'Fermer', {
+          duration: 4000,
+          panelClass: this.salesBlocked ? ['snackbar-error'] : ['snackbar-success']
+        });
+      },
+      error: err => {
+        console.error('Erreur lors du blocage des ventes', err);
+        this.snackBar.open('⚠️ Impossible de modifier le blocage des ventes', 'Fermer', {
+          duration: 4000,
+          panelClass: ['snackbar-error']
+        });
+      }
+    });
   }
 }

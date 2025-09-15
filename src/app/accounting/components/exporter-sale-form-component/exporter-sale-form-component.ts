@@ -10,6 +10,7 @@ import {UserListService} from '../../../administration/services/user-list.servic
 import {MatSelectModule} from '@angular/material/select';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {DashboardService} from '../../services/dashboard.service';
 
 
 @Component({
@@ -29,10 +30,12 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 export class ExporterSaleFormComponent implements OnInit {
   exporterSaleForm: FormGroup;
   users: any[] = [];
+  salesBlocked = false;
 
   constructor(private fb: FormBuilder,
               private exporterSaleService: ExporterSaleService,
               private userService: UserListService,
+              private dashboardService: DashboardService,
               private auth: AuthService,
               private router: Router,
               private snackBar: MatSnackBar) {
@@ -63,6 +66,22 @@ export class ExporterSaleFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Récupérer l'état du blocage des ventes depuis le backend
+    this.dashboardService.getSalesBlocked().subscribe({
+      next: blocked => {
+        this.salesBlocked = blocked;
+
+        // Afficher un message à l’utilisateur
+        if (blocked) {
+          this.snackBar.open('❌ Les ventes sont actuellement bloquées', 'Fermer', {
+            duration: 4000,
+            panelClass: ['snackbar-error']
+          });
+        }
+      },
+      error: err => console.error('Erreur récupération état ventes bloquées', err)
+    });
+
     // Charger la liste des utilisateurs au démarrage
     this.userService.getUsers().subscribe({
       next: data => this.users = data,

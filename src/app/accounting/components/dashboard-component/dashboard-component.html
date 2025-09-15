@@ -2,6 +2,15 @@
   <button mat-stroked-button color="warn" (click)="resetCompta()">
     🔄 Reset Compta
   </button>
+
+  <mat-slide-toggle
+    color="warn"
+    [(ngModel)]="salesBlocked"
+    (change)="onSalesBlockChange($event)"
+    style="margin-left: 16px;"
+  >
+    Bloquer les ventes
+  </mat-slide-toggle>
 </div>
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">

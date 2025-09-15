@@ -3,10 +3,19 @@
   <form class="customer-form" [formGroup]="clientSaleForm" (ngSubmit)="onSubmit()">
     <h2>Nouvelle vente client</h2>
 
+    <!-- Overlay si ventes bloquées -->
+    @if (salesBlocked) {
+      <div class="form-overlay">
+        <div class="overlay-message">
+          ❌ Les ventes sont actuellement bloquées
+        </div>
+      </div>
+    }
+
     <!-- Produit -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Produit</mat-label>
-      <mat-select formControlName="product" required (selectionChange)="onProductChange($event.value)">
+      <mat-select formControlName="product" required (selectionChange)="onProductChange($event.value)" [disabled]="salesBlocked">
         @for (p of products; track p.id) {
           <mat-option [value]="p.id">{{ p.name }}</mat-option>
         }
@@ -22,7 +31,7 @@
     <!-- Type de vente -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Type de vente</mat-label>
-      <mat-select formControlName="typeOfSale" required>
+      <mat-select formControlName="typeOfSale" [disabled]="salesBlocked" required>
         @for (t of saleTypes; track t.key) {
           <mat-option [value]="t.key">{{ t.label }}</mat-option>
         }
@@ -32,7 +41,7 @@
     <!-- Contrat -->
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Contrat</mat-label>
-      <mat-select formControlName="contract">
+      <mat-select formControlName="contract" [disabled]="salesBlocked">
         <!-- Option vide -->
         <mat-option [value]="null">Aucun contrat</mat-option>
 
@@ -44,10 +53,10 @@
 
     <!-- Checkbox + bouton calcul -->
     <div class="calc-container">
-      <mat-checkbox formControlName="calculateByPrice">
+      <mat-checkbox formControlName="calculateByPrice" [disabled]="salesBlocked">
         Calculer par prix (sinon par quantité)
       </mat-checkbox>
-      <button mat-stroked-button color="accent" type="button" (click)="recalculate()">
+      <button mat-stroked-button color="accent" type="button" (click)="recalculate()" [disabled]="salesBlocked">
         Calculer
       </button>
     </div>
@@ -59,7 +68,7 @@
         matInput
         type="number"
         formControlName="quantity"
-        [disabled]="clientSaleForm.get('calculateByPrice')?.value"
+        [disabled]="clientSaleForm.get('calculateByPrice')?.value || salesBlocked"
       />
     </mat-form-field>
 
@@ -70,14 +79,14 @@
         matInput
         type="number"
         formControlName="price"
-        [disabled]="!clientSaleForm.get('calculateByPrice')?.value"
+        [disabled]="!clientSaleForm.get('calculateByPrice')?.value || salesBlocked"
       />
     </mat-form-field>
 
     @if (isPatron()) {
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Utilisateur</mat-label>
-        <mat-select formControlName="userId">
+        <mat-select formControlName="userId" [disabled]="salesBlocked">
           <mat-option [value]="null">Aucun utilisateur</mat-option>
           @for (u of users; track u.id) {
             <mat-option [value]="u.id">{{ u.firstName }} {{ u.lastName }}</mat-option>
@@ -90,7 +99,7 @@
     }
 
     <!-- Bouton -->
-    <button mat-raised-button color="primary" type="submit" [disabled]="clientSaleForm.invalid || !calculated">
+    <button mat-raised-button color="primary" type="submit" [disabled]="clientSaleForm.invalid || !calculated || salesBlocked">
       Ajouter la vente
     </button>
   </form>
