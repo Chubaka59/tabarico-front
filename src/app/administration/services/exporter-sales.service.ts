@@ -2,13 +2,12 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ExporterSale} from '../../core/models/exporter-sales.model';
-import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExporterSalesService {
-  private apiUrl = environment.apiUrl + '/exportersales';
+  private apiUrl = "/api/exportersales";
 
   constructor(private http: HttpClient) {}
 

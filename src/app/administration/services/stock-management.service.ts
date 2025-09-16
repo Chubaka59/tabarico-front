@@ -4,13 +4,12 @@ import {Observable} from 'rxjs';
 import {StockTransactionModel} from '../../core/models/stock-transaction.model';
 import {ProductModel} from '../../core/models/Product.model';
 import {StockHistoryModel} from '../../core/models/stock-history.model'
-import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StockManagementService {
-  private apiUrl = environment.apiUrl;
+  private apiUrl = "/api";
 
   constructor(private http: HttpClient) {}
 

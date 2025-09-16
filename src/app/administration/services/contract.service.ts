@@ -2,12 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {ContractModel} from '../../core/models/contract.model';
 import {Observable} from 'rxjs';
-import {environment} from '../../../environments/environment';
 
 
 @Injectable({ providedIn: 'root' })
 export class ContractService {
-  private apiUrl = environment.apiUrl + '/contracts';
+  private apiUrl = "/api/contracts";
 
   constructor(private http: HttpClient) {}
 

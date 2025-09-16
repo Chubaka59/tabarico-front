@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CustomerDirtySaleRateModel} from '../../core/models/customer-dirty-sale-rate.model';
-import {environment} from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerDirtySaleRateService {
-  private apiUrl = environment.apiUrl + '/customerDirtySaleRates';
+  private apiUrl = "/api/customerDirtySaleRates";
 
   constructor(private http: HttpClient) {}
 

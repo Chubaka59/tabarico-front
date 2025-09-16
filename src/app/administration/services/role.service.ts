@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {RoleModel} from '../../core/models/role.model';
-import {environment} from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class RoleService {
-  private apiUrl = environment.apiUrl + '/roles';
+  private apiUrl = "/api/roles";
 
   constructor(private http: HttpClient) {}
 

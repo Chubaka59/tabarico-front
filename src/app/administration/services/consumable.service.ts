@@ -2,11 +2,10 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ConsumableModel} from '../../core/models/consumable.model';
-import {environment} from '../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ConsumableService {
-  private apiUrl = environment.apiUrl + '/consumables';
+  private apiUrl = "/api/consumables";
 
   constructor(private http: HttpClient) {}
 

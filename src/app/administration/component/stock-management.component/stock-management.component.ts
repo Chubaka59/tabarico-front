@@ -61,7 +61,7 @@ export class StockManagementComponent implements OnInit {
 
   ngOnInit(): void {
     const userRoles = localStorage.getItem('role') || '[]';
-    this.isResponsable = userRoles.includes('Responsable');
+    this.isResponsable = userRoles.includes('Responsable') || userRoles.includes('Patron');
 
     this.stockForm = this.fb.group({
       item: [null, Validators.required], // ✅ remplace product par item
