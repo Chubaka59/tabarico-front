@@ -22,6 +22,9 @@ import {
   CustomerDirtySaleRateDialogComponent
 } from '../customer-dirty-sale-rate-dialog.component/customer-dirty-sale-rate-dialog.component';
 import {ConsumableDialogComponent} from '../consumable-dialog.component/consumable-dialog.component';
+import {RewardService} from '../../services/reward.service';
+import {RewardModel} from '../../../core/models/reward.model';
+import {RewardDialogComponent} from '../reward-dialog.component/reward-dialog.component';
 
 @Component({
   selector: 'app-configuration.component',
@@ -40,6 +43,7 @@ export class ConfigurationComponent implements OnInit {
   produits: ProductModel[] = [];
   consommables: ConsumableModel[] = [];
   customerDirtySaleRate: CustomerDirtySaleRateModel[] = [];
+  rewards: RewardModel[] = [];
 
   constructor(
     private roleService: RoleService,
@@ -47,6 +51,7 @@ export class ConfigurationComponent implements OnInit {
     private contratService: ContractService,
     private customerDirtySaleRateService: CustomerDirtySaleRateService,
     private consumableService: ConsumableService,
+    private rewardService: RewardService,
     private dialog: MatDialog,
     private snack: MatSnackBar
   ) {}
@@ -57,6 +62,7 @@ export class ConfigurationComponent implements OnInit {
     this.loadContrats();
     this.loadCustomerDirtySaleRates();
     this.loadConsumables();
+    this.loadRewards();
   }
 
   // === LOAD DATA ===
@@ -92,6 +98,13 @@ export class ConfigurationComponent implements OnInit {
     this.consumableService.getAll().subscribe({
       next: (data) => this.consommables = data,
       error: (err) => console.error('Erreur chargement consommables', err)
+    });
+  }
+
+  loadRewards(): void {
+    this.rewardService.getAll().subscribe({
+      next: (data) => (this.rewards = data),
+      error: (err) => console.error('Erreur chargement récompenses', err),
     });
   }
 
@@ -214,6 +227,17 @@ export class ConfigurationComponent implements OnInit {
         console.error('Erreur suppression contrat', err);
         this.snack.open('Erreur lors de la suppression du consommable', 'Fermer', { duration: 4000 });
       }
+    });
+  }
+
+  editReward(reward: RewardModel) {
+    const dialogRef = this.dialog.open(RewardDialogComponent, {
+      width: '450px',
+      data: reward,
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadRewards();
     });
   }
 }
