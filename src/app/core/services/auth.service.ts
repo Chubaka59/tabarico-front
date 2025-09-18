@@ -14,11 +14,12 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.post<{ token: string, role: string }>(`${this.apiUrl}/auth/login`, { username, password })
+    return this.http.post<{ token: string, refreshToken: string, role: string }>(`${this.apiUrl}/auth/login`, { username, password })
       .pipe(
         tap(response => {
           this.setRole(response.role)
           localStorage.setItem('token', response.token);
+          localStorage.setItem('refreshToken', response.refreshToken);
           localStorage.setItem('role', response.role)
         })
       );
@@ -26,6 +27,10 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  getRefreshToken() {
+    return localStorage.getItem('refreshToken');
   }
 
   logout() {
@@ -49,6 +54,21 @@ export class AuthService {
     } catch {
       return null;
     }
+  }
+
+  refreshToken() {
+    const refreshToken = this.getRefreshToken();
+    if (!refreshToken) return null;
+
+    return this.http.post<{ token: string, refreshToken: string }>(
+      `${this.apiUrl}/auth/refresh`,
+      { refreshToken }
+    ).pipe(
+      tap(response => {
+        localStorage.setItem('token', response.token);
+        localStorage.setItem('refreshToken', response.refreshToken);
+      })
+    );
   }
 
   getUserInfo(): { username: string; firstName?: string; lastName?: string } | null {
