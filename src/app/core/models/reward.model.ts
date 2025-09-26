@@ -1,4 +1,5 @@
 export interface RewardModel {
+  id: number;
   position: string; // "Premier", "Deuxième", "Troisième"
-  amount: number;   // Montant de la récompense
+  rewardAmount: number;   // Montant de la récompense
 }

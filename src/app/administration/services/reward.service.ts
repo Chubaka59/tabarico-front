@@ -18,6 +18,6 @@ export class RewardService {
   }
 
   update(reward: RewardModel): Observable<RewardModel> {
-    return this.http.put<RewardModel>(`${this.apiUrl}/${reward.position}`, reward);
+    return this.http.put<RewardModel>(`${this.apiUrl}/${reward.id}`, reward);
   }
 }

@@ -39,7 +39,7 @@ export class RewardDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: RewardModel | null
   ) {
     this.form = this.fb.group({
-      amount: [data?.amount || 0, [Validators.required, Validators.min(0)]],
+      rewardAmount: [data?.rewardAmount || 0, [Validators.required, Validators.min(0)]],
     });
   }
 
