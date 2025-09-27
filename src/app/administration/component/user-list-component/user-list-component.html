@@ -49,6 +49,13 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="dateOfHire">
+      <th mat-header-cell *matHeaderCellDef>Date d'embauche</th>
+      <td mat-cell *matCellDef="let u">
+        {{ u.dateOfHire ? (u.dateOfHire | date:'dd/MM/yyyy') : 'Non renseignée' }}
+      </td>
+    </ng-container>
+
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
       <td mat-cell *matCellDef="let u">

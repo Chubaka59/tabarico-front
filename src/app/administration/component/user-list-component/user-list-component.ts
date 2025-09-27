@@ -27,7 +27,7 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
   styleUrls: ['./user-list-component.scss'],
 })
 export class UserListComponent implements OnInit {
-  displayedColumns = ['firstName', 'lastName', 'username', 'phone', 'role', 'identityCard', 'action'];
+  displayedColumns = ['firstName', 'lastName', 'username', 'phone', 'role', 'dateOfHire', 'identityCard', 'action'];
   dataSource = new MatTableDataSource<UserModel>();
 
   @ViewChild(MatSort) sort!: MatSort;

@@ -15,4 +15,5 @@ export interface DashboardModel {
   endOfHoliday?: Date;
   warning1: boolean;
   warning2: boolean;
+  dateOfHire?: Date;
 }

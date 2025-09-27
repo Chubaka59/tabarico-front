@@ -10,6 +10,8 @@ import {UserListService} from '../../services/user-list.service';
 import {RoleModel} from '../../../core/models/role.model';
 import {MatSelectModule} from '@angular/material/select';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-user-form-dialog',
@@ -22,7 +24,10 @@ import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
     MatButtonModule,
     MatSelectModule,
     MatDialogTitle,
-    MatSnackBarModule // ✅ ajout snackbar
+    MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule
+    // ✅ ajout snackbar
   ],
   templateUrl: './user-form-dialog.component.html',
   styleUrls: ['./user-form-dialog.component.scss']
@@ -62,7 +67,8 @@ export class UserFormDialogComponent implements OnInit {
       phone: [this.data?.phone || ''],
       role: [this.data?.role?.id || '', Validators.required],
       password: ['', this.isEditMode ? [] : Validators.required],
-      identityCard: [this.data?.identityCardImage || '']
+      identityCard: [this.data?.identityCardImage || ''],
+      dateOfHire: [this.data?.dateOfHire ? new Date(this.data.dateOfHire) : null] // ✅ ajout
     });
   }
 
@@ -144,6 +150,14 @@ export class UserFormDialogComponent implements OnInit {
 
     if (this.identityFile) {
       formData.append('identityCard', this.identityFile, this.identityFile.name);
+    }
+
+    if (this.userForm.value.dateOfHire) {
+      const d: Date = this.userForm.value.dateOfHire;
+      const dateString = d.getFullYear()
+        + '-' + String(d.getMonth() + 1).padStart(2, '0')
+        + '-' + String(d.getDate()).padStart(2, '0');
+      formData.append('dateOfHire', dateString);
     }
 
     return formData;

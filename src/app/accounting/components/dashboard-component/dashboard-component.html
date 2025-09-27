@@ -131,12 +131,18 @@
 
   <ng-container matColumnDef="primeActuellePropre">
     <th mat-header-cell *matHeaderCellDef>Propre</th>
-    <td mat-cell *matCellDef="let u">{{ u.cleanMoneySalary | currency: 'USD' }}</td>
+    <td mat-cell *matCellDef="let u"
+        [ngClass]="{'cell-prime-propre': u.cleanMoneySalary > 0}">
+      {{ u.cleanMoneySalary | currency: 'USD' }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="primeActuelleSale">
     <th mat-header-cell *matHeaderCellDef>Sale</th>
-    <td mat-cell *matCellDef="let u">{{ u.dirtyMoneySalary | currency: 'USD' }}</td>
+    <td mat-cell *matCellDef="let u"
+        [ngClass]="{'cell-prime-sale': u.dirtyMoneySalary > 0}">
+      {{ u.dirtyMoneySalary | currency: 'USD' }}
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="primeS1Propre">
@@ -157,6 +163,13 @@
   <ng-container matColumnDef="avertissement2">
     <th mat-header-cell *matHeaderCellDef>2</th>
     <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.warning2" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+  </ng-container>
+
+  <ng-container matColumnDef="dateOfHire">
+    <th mat-header-cell *matHeaderCellDef rowspan="2">Date d'embauche</th>
+    <td mat-cell *matCellDef="let u">
+      {{ u.dateOfHire ? (u.dateOfHire | date:'dd/MM/yyyy') : '-' }}
+    </td>
   </ng-container>
 
   <!-- Header rows -->

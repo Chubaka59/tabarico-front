@@ -38,6 +38,12 @@
     </mat-select>
   </mat-form-field>
 
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Date d'embauche</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="dateOfHire" />
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
 
   <div class="file-upload">
     <label for="identityCard">Carte d'identité</label>

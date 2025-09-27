@@ -53,6 +53,7 @@ export class DashboardComponent implements OnInit {
     'quota', 'quotaGrossiste',
     'primeActuelleGroup', 'primeS1Group',
     'avertissementsGroup',
+    'dateOfHire',
     'vacances', 'dateRetour'   // déplacé en dernier
   ];
 
@@ -73,6 +74,7 @@ export class DashboardComponent implements OnInit {
     'primeActuellePropre', 'primeActuelleSale',
     'primeS1Propre', 'primeS1Sale',
     'avertissement1', 'avertissement2',
+    'dateOfHire',
     'vacances', 'dateRetour'   // déplacé en dernier
   ];
 

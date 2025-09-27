@@ -8,4 +8,5 @@ export interface UserModel {
   phone: string;
   role: RoleModel;
   identityCardImage?: string;
+  dateOfHire?: string;
 }
