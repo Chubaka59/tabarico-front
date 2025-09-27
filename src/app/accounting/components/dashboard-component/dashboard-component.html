@@ -1,5 +1,7 @@
 <div class="toolbar">
-  <button mat-stroked-button color="warn" (click)="resetCompta()">
+  <button mat-stroked-button
+          class="reset-compta"
+          (click)="resetCompta()">
     🔄 Reset Compta
   </button>
 
@@ -11,7 +13,19 @@
   >
     Bloquer les ventes
   </mat-slide-toggle>
+
+  <!-- Totaux des primes -->
+  <div class="totaux-primes">
+    <div class="prime-box prime-propre">
+      Prime Propre : {{ totalCleanSalary | currency:'USD' }}
+    </div>
+    <div class="prime-box prime-sale">
+      Prime Sale : {{ totalDirtySalary | currency:'USD' }}
+    </div>
+  </div>
 </div>
+
+
 
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 custom-table">
 
@@ -151,5 +165,9 @@
 
 
   <!-- Rows -->
-  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  <tr mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      [ngClass]="getRowClass(row)">
+  </tr>
+
 </table>

@@ -183,4 +183,29 @@ export class DashboardComponent implements OnInit {
       }
     });
   }
+
+  getRowClass(user: DashboardModel): string {
+    switch (user.roleName?.toLowerCase()) {
+      case 'cdi':
+        return 'role-cdi';
+      case 'patron':
+      case 'patrons':
+        return 'role-patron';
+      case 'responsable':
+      case 'responsables':
+        return 'role-responsable';
+      case 'cdd':
+        return 'role-cdd';
+      default:
+        return '';
+    }
+  }
+
+  get totalCleanSalary(): number {
+    return this.dataSource.data.reduce((sum, u) => sum + (u.cleanMoneySalary || 0), 0);
+  }
+
+  get totalDirtySalary(): number {
+    return this.dataSource.data.reduce((sum, u) => sum + (u.dirtyMoneySalary || 0), 0);
+  }
 }

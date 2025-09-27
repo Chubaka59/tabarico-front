@@ -19,3 +19,11 @@ button.delete-btn {
   text-align: center; /* pour centrer le texte */
 }
 
+::ng-deep .exporter-sales-container .mat-mdc-text-field-wrapper {
+  background-color: #fff !important;
+  border-radius: 4px; /* optionnel */
+}
+
+::ng-deep .exporter-sales-container input.mat-mdc-input-element {
+  background-color: #fff !important;
+}

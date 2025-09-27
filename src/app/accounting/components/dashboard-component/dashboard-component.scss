@@ -10,3 +10,59 @@
     text-align: center;
   }
 }
+
+.role-cdi {
+  background-color: #A4C2F4 !important;
+}
+
+.role-patron {
+  background-color: #F9CB9C !important;
+}
+
+.role-responsable {
+  background-color: #FFF2CC !important;
+}
+
+.role-cdd {
+  background-color: #CFE2F3 !important;
+}
+
+.toolbar button.reset-compta {
+  background-color: #fff !important;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 10px;
+
+  .totaux-primes {
+    margin-left: auto; /* pousse les totaux à droite */
+    display: flex;
+    gap: 12px;
+
+    .prime-box {
+      background-color: #fff;
+      border: 1px solid rgba(0,0,0,0.23);
+      border-radius: 4px;
+      padding: 6px 12px;
+      font-weight: 500;
+      font-size: 14px;
+      cursor: default;
+      display: flex;
+      align-items: center;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    .prime-propre {
+      color: #2e7d32; /* vert */
+    }
+
+    .prime-sale {
+      color: #c62828; /* rouge */
+    }
+  }
+}
+
+

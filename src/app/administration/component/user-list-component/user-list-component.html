@@ -2,12 +2,12 @@
   <h2>Liste des utilisateurs</h2>
   <div class="header-actions">
     <!-- Barre de recherche -->
-    <mat-form-field appearance="outline" style="width: 300px; margin-bottom: 20px;">
+    <mat-form-field class="search-input" appearance="outline" style="width: 300px; margin-bottom: 20px;">
       <mat-label>Rechercher un utilisateur</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Nom, prénom, username" />
     </mat-form-field>
 
-    <button mat-stroked-button color="primary" (click)="openCreateUser()">Ajouter un utilisateur</button>
+    <button mat-stroked-button class="button" color="primary" (click)="openCreateUser()">Ajouter un utilisateur</button>
   </div>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8 custom-table">
 

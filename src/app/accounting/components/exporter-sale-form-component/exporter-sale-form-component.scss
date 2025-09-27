@@ -3,22 +3,21 @@
   justify-content: center;   // centre horizontalement
   align-items: center;       // centre verticalement
   min-height: 100vh;         // prend toute la hauteur de l’écran
-  background-color: #121212; // même fond sombre que les autres pages
 }
 
 .exporter-sale-container {
   max-width: 500px;
   width: 100%;
   padding: 2rem;
-  background-color: #1e1e1e;
+  background-color: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-  color: #fff;
+  color: black;
 
   h2 {
     text-align: center;
     margin-bottom: 1.5rem;
-    color: #ffffff;
+    color: #783F04;
     font-weight: 600;
   }
 

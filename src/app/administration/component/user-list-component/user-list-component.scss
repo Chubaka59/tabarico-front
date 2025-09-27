@@ -2,6 +2,7 @@ h2 {
   margin: 1.5rem 0; // espace en haut et en bas
   font-size: 2rem;  // un peu plus grand si tu veux
   font-weight: bold;
+  color: #783F04;
 }
 
 /* Bouton "Supprimer" */
@@ -34,3 +35,11 @@ button.delete-btn {
   text-align: center; /* pour centrer le texte */
 }
 
+::ng-deep .search-input .mat-mdc-text-field-wrapper {
+  background-color: #fff !important;
+  border-radius: 4px;
+}
+
+.button {
+  background-color: #fff !important;
+}

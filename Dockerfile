@@ -17,7 +17,7 @@ RUN npm run build
 # Étape 2 : Servir avec Nginx
 # --------------------
 FROM nginx:1.25-alpine
-COPY --from=build /app/dist/tabarico-front /usr/share/nginx/html
+COPY --from=build /app/dist/tabarico-front/browser /usr/share/nginx/html
 
 # Configuration Nginx pour Angular + proxy API
 COPY nginx.conf /etc/nginx/conf.d/default.conf

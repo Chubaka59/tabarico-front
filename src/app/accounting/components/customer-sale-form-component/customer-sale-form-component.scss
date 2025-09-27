@@ -11,10 +11,10 @@
   .customer-form {
     width: 100%;
     padding: 2rem;
-    background-color: #1e1e1e;
+    background-color: white;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    color: #fff;
+    color: black;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -23,7 +23,7 @@
     h2 {
       text-align: center;
       margin-bottom: 1rem;
-      color: #ffffff;
+      color: #783F04;
       font-weight: 600;
     }
 
@@ -31,12 +31,12 @@
       width: 100%;
 
       mat-label {
-        color: #bdbdbd;
+        color: black;
       }
 
       input,
       mat-select {
-        color: #fff;
+        color: black;
       }
     }
 
@@ -105,7 +105,7 @@
   width: 100%;
 
   mat-checkbox {
-    color: #fff;
+    color: black;
   }
 
   button {
