@@ -210,4 +210,8 @@ export class DashboardComponent implements OnInit {
   get totalDirtySalary(): number {
     return this.dataSource.data.reduce((sum, u) => sum + (u.dirtyMoneySalary || 0), 0);
   }
+
+  get totalEmployees(): number {
+    return this.dataSource?.data?.length || 0;
+  }
 }

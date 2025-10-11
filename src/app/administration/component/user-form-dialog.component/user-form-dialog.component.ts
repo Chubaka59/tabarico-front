@@ -68,7 +68,10 @@ export class UserFormDialogComponent implements OnInit {
       role: [this.data?.role?.id || '', Validators.required],
       password: ['', this.isEditMode ? [] : Validators.required],
       identityCard: [this.data?.identityCardImage || ''],
-      dateOfHire: [this.data?.dateOfHire ? new Date(this.data.dateOfHire) : null] // ✅ ajout
+      dateOfHire: [
+        this.data?.dateOfHire ? new Date(this.data.dateOfHire) : null,
+        Validators.required
+      ]
     });
   }
 
