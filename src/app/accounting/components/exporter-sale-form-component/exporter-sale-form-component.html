@@ -54,6 +54,17 @@
         </mat-form-field>
       }
 
+      <div class="totals" *ngIf="totalEmploye !== null && totalEntreprise !== null">
+        <mat-card appearance="outlined" class="mt-3 p-2">
+          <div class="total-item">
+            <strong>Total employé :</strong> {{ totalEmploye }} $
+          </div>
+          <div class="total-item">
+            <strong>Total entreprise :</strong> {{ totalEntreprise }} $
+          </div>
+        </mat-card>
+      </div>
+
       <!-- Bouton -->
       <button mat-raised-button color="primary" type="submit" [disabled]="exporterSaleForm.invalid || salesBlocked">
         Ajouter la vente

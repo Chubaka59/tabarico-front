@@ -11,6 +11,7 @@ import {MatSelectModule} from '@angular/material/select';
 import {AuthService} from '../../../core/services/auth.service';
 import {MatSnackBar, MatSnackBarModule} from '@angular/material/snack-bar';
 import {DashboardService} from '../../services/dashboard.service';
+import {MatCard} from '@angular/material/card';
 
 
 @Component({
@@ -22,7 +23,8 @@ import {DashboardService} from '../../services/dashboard.service';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatCard
   ],
   templateUrl: './exporter-sale-form-component.html',
   styleUrl: './exporter-sale-form-component.scss'
@@ -31,6 +33,8 @@ export class ExporterSaleFormComponent implements OnInit {
   exporterSaleForm: FormGroup;
   users: any[] = [];
   salesBlocked = false;
+  totalEmploye: number | null = null;
+  totalEntreprise: number | null = null;
 
   constructor(private fb: FormBuilder,
               private exporterSaleService: ExporterSaleService,
@@ -70,8 +74,6 @@ export class ExporterSaleFormComponent implements OnInit {
     this.dashboardService.getSalesBlocked().subscribe({
       next: blocked => {
         this.salesBlocked = blocked;
-
-        // Afficher un message à l’utilisateur
         if (blocked) {
           this.snackBar.open('❌ Les ventes sont actuellement bloquées', 'Fermer', {
             duration: 4000,
@@ -82,14 +84,40 @@ export class ExporterSaleFormComponent implements OnInit {
       error: err => console.error('Erreur récupération état ventes bloquées', err)
     });
 
-    // Charger la liste des utilisateurs au démarrage
+    // Charger la liste des utilisateurs
     this.userService.getUsers().subscribe({
       next: data => this.users = data,
       error: err => console.error('Erreur chargement utilisateurs', err)
     });
+
+    // 🔥 Écouter les changements sur quantity et level
+    this.exporterSaleForm.get('quantity')?.valueChanges.subscribe(() => this.updateTotals());
+    this.exporterSaleForm.get('level')?.valueChanges.subscribe(() => this.updateTotals());
   }
 
   isPatron(): boolean {
     return this.auth.isPatron();
+  }
+
+  private updateTotals(): void {
+    const quantity = this.exporterSaleForm.get('quantity')?.value;
+    const level = this.exporterSaleForm.get('level')?.value;
+
+    if (quantity && level && quantity > 0 && level > 0) {
+      // Calcul total employé
+      const base = 51;
+      const totalEmployeRaw = (base + (base * (level * 0.3 / 100))) * quantity;
+      const totalEmploye = Math.round(totalEmployeRaw); // arrondi standard
+
+      // Calcul total entreprise
+      const totalEntrepriseRaw = totalEmploye * 0.3;
+      const totalEntreprise = Math.round(totalEntrepriseRaw);
+
+      this.totalEmploye = totalEmploye;
+      this.totalEntreprise = totalEntreprise;
+    } else {
+      this.totalEmploye = null;
+      this.totalEntreprise = null;
+    }
   }
 }
