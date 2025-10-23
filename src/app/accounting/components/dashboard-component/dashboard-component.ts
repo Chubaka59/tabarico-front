@@ -11,6 +11,7 @@ import {MatInputModule} from '@angular/material/input';
 import {MomentDateAdapter} from '@angular/material-moment-adapter';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {MatButton} from '@angular/material/button';
+import {AuthService} from '../../../core/services/auth.service';
 
 export const MY_DATE_FORMATS = {
   parse: {
@@ -84,7 +85,8 @@ export class DashboardComponent implements OnInit {
   dataSource = new MatTableDataSource<DashboardModel>([]);
 
   constructor(private dashboardService: DashboardService,
-              private snackBar: MatSnackBar) {}
+              private snackBar: MatSnackBar,
+              protected authService: AuthService) {}
 
   ngOnInit(): void {
     this.loadData();
@@ -213,5 +215,13 @@ export class DashboardComponent implements OnInit {
 
   get totalEmployees(): number {
     return this.dataSource?.data?.length || 0;
+  }
+
+  canViewFullInfo(user: DashboardModel): boolean {
+    // Les patrons voient tout
+    if (this.authService.isPatron()) return true;
+
+    // Les autres ne voient pas les infos détaillées des patrons
+    return !(user.roleName?.toLowerCase() === 'patron' || user.roleName?.toLowerCase() === 'patrons');
   }
 }

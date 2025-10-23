@@ -26,7 +26,7 @@
     <a routerLink="/modifyStock" routerLinkActive="active-link">Stock</a>
   }
   <!-- Menu Administration -->
-  @if (isResponsable()) {
+  @if (isRh()) {
     <a class="menu-parent" (click)="toggleMenu('admin')">
       <span>Administration</span>
       <span class="arrow" [class.open]="openMenu === 'admin'">▶</span>

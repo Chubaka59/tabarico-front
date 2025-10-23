@@ -40,8 +40,12 @@ export class HeaderComponent implements OnInit {
     return this.auth.isPatron();
   }
 
+  isRh() {
+    return this.auth.isRh() || this.isPatron();
+  }
+
   isResponsable(): boolean {
-    return this.auth.isResponsable() || this.isPatron();
+    return this.auth.isResponsable() || this.isRh();
   }
 
   isCDI(): boolean {

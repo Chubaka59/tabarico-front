@@ -3,11 +3,11 @@ import {CanActivate, Router} from '@angular/router';
 import {AuthService} from '../services/auth.service';
 
 @Injectable({ providedIn: 'root' })
-export class ResponsableGuard implements CanActivate {
+export class CdiGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): boolean {
-    if (this.authService.isResponsable() || this.authService.isRh() || this.authService.isPatron()) {
+    if (this.authService.isRh() || this.authService.isPatron()) {
       return true;
     }
     this.router.navigate(['/forbidden']);

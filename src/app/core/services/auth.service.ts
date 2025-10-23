@@ -97,4 +97,7 @@ export class AuthService {
     return this.role === 'Patron';
   }
 
+  isRh(): boolean {
+    return this.role === 'Rh';
+  }
 }

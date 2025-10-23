@@ -1,18 +1,20 @@
 <div class="toolbar">
-  <button mat-stroked-button
-          class="reset-compta"
-          (click)="resetCompta()">
-    🔄 Reset Compta
-  </button>
+  @if (authService.isPatron()) {
+    <button mat-stroked-button
+            class="reset-compta"
+            (click)="resetCompta()">
+      🔄 Reset Compta
+    </button>
 
-  <mat-slide-toggle
-    color="warn"
-    [(ngModel)]="salesBlocked"
-    (change)="onSalesBlockChange($event)"
-    style="margin-left: 16px;"
-  >
-    Bloquer les ventes
-  </mat-slide-toggle>
+    <mat-slide-toggle
+      color="warn"
+      [(ngModel)]="salesBlocked"
+      (change)="onSalesBlockChange($event)"
+      style="margin-left: 16px;"
+    >
+      Bloquer les ventes
+    </mat-slide-toggle>
+  }
 
   <!-- Totaux des primes -->
   <div class="totaux-primes">
@@ -51,12 +53,26 @@
 
   <ng-container matColumnDef="venteClientPropre">
     <th mat-header-cell *matHeaderCellDef>Propre</th>
-    <td mat-cell *matCellDef="let u">{{ u.cleanMoneyCustomerSales | currency: 'USD' }}</td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        <ng-container>
+          {{ u.cleanMoneyCustomerSales | currency: 'USD' }}
+        </ng-container>
+      } @else {
+        <ng-container>-</ng-container>
+      }
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="venteClientSale">
     <th mat-header-cell *matHeaderCellDef>Sale</th>
-    <td mat-cell *matCellDef="let u">{{ u.dirtyMoneyCustomerSales | currency: 'USD' }}</td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        {{ u.dirtyMoneyCustomerSales | currency: 'USD' }}
+      } @else {
+        <ng-container>-</ng-container>
+      }
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="venteGrossisteCayoGroup">
@@ -68,47 +84,75 @@
   <!-- Sous-colonnes -->
   <ng-container matColumnDef="venteGrossistePrimeEntreprise">
     <th mat-header-cell *matHeaderCellDef>Prime Entreprise</th>
-    <td mat-cell *matCellDef="let u">{{ u.enterpriseAmountExporterSales | currency: 'USD' }}</td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        {{ u.enterpriseAmountExporterSales | currency: 'USD' }}
+      } @else {
+        <ng-container>-</ng-container>
+      }</td>
   </ng-container>
 
   <ng-container matColumnDef="venteGrossisteQuantite">
     <th mat-header-cell *matHeaderCellDef>Quantité</th>
-    <td mat-cell *matCellDef="let u">{{ u.quantityExporterSales }}</td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        {{ u.quantityExporterSales }}
+      } @else {
+        <ng-container>-</ng-container>
+      }</td>
   </ng-container>
 
 
   <ng-container matColumnDef="quota">
     <th mat-header-cell *matHeaderCellDef rowspan="2">Quota</th>
-    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.quota" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        <mat-slide-toggle [(ngModel)]="u.quota" (change)="onToggleChange(u)"></mat-slide-toggle>
+      } @else {
+        <ng-container>-</ng-container>
+      }</td>
   </ng-container>
 
   <ng-container matColumnDef="quotaGrossiste">
     <th mat-header-cell *matHeaderCellDef rowspan="2">Quota Grossiste</th>
-    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.exporterQuota" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        <mat-slide-toggle [(ngModel)]="u.exporterQuota" (change)="onToggleChange(u)"></mat-slide-toggle>
+      } @else {
+        <ng-container>-</ng-container>
+      }</td>
   </ng-container>
 
   <ng-container matColumnDef="vacances">
     <th mat-header-cell *matHeaderCellDef rowspan="2">Vacances</th>
     <td mat-cell *matCellDef="let u">
-      <mat-slide-toggle [(ngModel)]="u.holiday" (change)="onHolidayChange(u)"></mat-slide-toggle>
+      @if (canViewFullInfo(u)) {
+        <mat-slide-toggle [(ngModel)]="u.holiday" (change)="onHolidayChange(u)"></mat-slide-toggle>
+      } @else {
+        <ng-container>-</ng-container>
+      }
     </td>
   </ng-container>
 
   <ng-container matColumnDef="dateRetour">
     <th mat-header-cell *matHeaderCellDef rowspan="2">Retour</th>
     <td mat-cell *matCellDef="let u">
-      @if (u.holiday) {
-        <mat-form-field appearance="outline" class="vacances-date-input">
-          <input
-            matInput
-            [matDatepicker]="picker"
-            placeholder="Retour"
-            [(ngModel)]="u.endOfHoliday"
-            (dateChange)="onHolidayChange(u)"
-          />
-          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+      @if (canViewFullInfo(u)) {
+        @if (u.holiday) {
+          <mat-form-field appearance="outline" class="vacances-date-input">
+            <input
+              matInput
+              [matDatepicker]="picker"
+              placeholder="Retour"
+              [(ngModel)]="u.endOfHoliday"
+              (dateChange)="onHolidayChange(u)"
+            />
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        }
+      } @else {
+        <ng-container>-</ng-container>
       }
     </td>
   </ng-container>
@@ -136,7 +180,11 @@
     <th mat-header-cell *matHeaderCellDef>Propre</th>
     <td mat-cell *matCellDef="let u"
         [ngClass]="{'cell-prime-propre': u.cleanMoneySalary > 0}">
-      {{ u.cleanMoneySalary | currency: 'USD' }}
+      @if (canViewFullInfo(u)) {
+        {{ u.cleanMoneySalary | currency: 'USD' }}
+      } @else {
+        <ng-container>-</ng-container>
+      }
     </td>
   </ng-container>
 
@@ -144,34 +192,65 @@
     <th mat-header-cell *matHeaderCellDef>Sale</th>
     <td mat-cell *matCellDef="let u"
         [ngClass]="{'cell-prime-sale': u.dirtyMoneySalary > 0}">
-      {{ u.dirtyMoneySalary | currency: 'USD' }}
+      @if (canViewFullInfo(u)) {
+        {{ u.dirtyMoneySalary | currency: 'USD' }}
+      } @else {
+        <ng-container>-</ng-container>
+      }
     </td>
   </ng-container>
 
   <ng-container matColumnDef="primeS1Propre">
     <th mat-header-cell *matHeaderCellDef>Propre</th>
-    <td mat-cell *matCellDef="let u">{{ u.cleanMoneySalaryPreviousWeek | currency: 'USD' }}</td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        {{ u.cleanMoneySalaryPreviousWeek | currency: 'USD' }}
+      } @else {
+        <ng-container>-</ng-container>
+      }
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="primeS1Sale">
     <th mat-header-cell *matHeaderCellDef>Sale</th>
-    <td mat-cell *matCellDef="let u">{{ u.dirtyMoneySalaryPreviousWeek | currency: 'USD' }}</td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        {{ u.dirtyMoneySalaryPreviousWeek | currency: 'USD' }}
+      } @else {
+        <ng-container>-</ng-container>
+      }
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="avertissement1">
     <th mat-header-cell *matHeaderCellDef>1</th>
-    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.warning1" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        <mat-slide-toggle [(ngModel)]="u.warning1" (change)="onToggleChange(u)"></mat-slide-toggle>
+      } @else {
+        <ng-container>-</ng-container>
+      }
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="avertissement2">
     <th mat-header-cell *matHeaderCellDef>2</th>
-    <td mat-cell *matCellDef="let u"><mat-slide-toggle [(ngModel)]="u.warning2" (change)="onToggleChange(u)"></mat-slide-toggle></td>
+    <td mat-cell *matCellDef="let u">
+      @if (canViewFullInfo(u)) {
+        <mat-slide-toggle [(ngModel)]="u.warning2" (change)="onToggleChange(u)"></mat-slide-toggle>
+      } @else {
+        <ng-container>-</ng-container>
+      }</td>
   </ng-container>
 
   <ng-container matColumnDef="dateOfHire">
     <th mat-header-cell *matHeaderCellDef rowspan="2">Date d'embauche</th>
     <td mat-cell *matCellDef="let u">
-      {{ u.dateOfHire ? (u.dateOfHire | date:'dd/MM/yyyy') : '-' }}
+      @if (canViewFullInfo(u)) {
+        {{ u.dateOfHire ? (u.dateOfHire | date:'dd/MM/yyyy') : '-' }}
+      } @else {
+        <ng-container>-</ng-container>
+      }
     </td>
   </ng-container>
 
