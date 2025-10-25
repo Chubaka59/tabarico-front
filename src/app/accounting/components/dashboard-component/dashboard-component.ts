@@ -95,7 +95,18 @@ export class DashboardComponent implements OnInit {
 
   private loadData(): void {
     this.dashboardService.getUserAccounting().subscribe({
-      next: data => this.dataSource.data = data,
+      next: data => {
+        // tri personnalisé selon l'ordre défini
+        this.dataSource.data = data.sort((a, b) => {
+          const roleA = a.roleName?.toLowerCase() || '';
+          const roleB = b.roleName?.toLowerCase() || '';
+
+          const orderA = this.roleOrder[roleA] ?? 999; // si rôle inconnu, en bas
+          const orderB = this.roleOrder[roleB] ?? 999;
+
+          return orderA - orderB;
+        });
+      },
       error: () => this.showError("Erreur lors du chargement des données 📡")
     });
   }
@@ -200,6 +211,8 @@ export class DashboardComponent implements OnInit {
         return 'role-responsable';
       case 'cdd':
         return 'role-cdd';
+      case 'rh':
+        return 'role-rh'
       default:
         return '';
     }
@@ -224,4 +237,12 @@ export class DashboardComponent implements OnInit {
     // Les autres ne voient pas les infos détaillées des patrons
     return !(user.roleName?.toLowerCase() === 'patron' || user.roleName?.toLowerCase() === 'patrons');
   }
+
+  private roleOrder: { [key: string]: number } = {
+    'patron': 1,
+    'rh': 2,
+    'responsable': 3,
+    'cdi': 4,
+    'cdd': 5
+  };
 }
