@@ -26,4 +26,8 @@ export class ExporterSalesService {
   deleteSale(id: number): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
+
+  updateVerificationStatus(id: number, verified: boolean) {
+    return this.http.post(`${this.apiUrl}/${id}/verify`, verified);
+  }
 }

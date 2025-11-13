@@ -6,4 +6,5 @@ export interface ExporterSale {
   level: number;
   employeeAmount: number;
   companyAmount: number;
+  verified: boolean;
 }

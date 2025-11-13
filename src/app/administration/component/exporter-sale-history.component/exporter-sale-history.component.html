@@ -54,6 +54,18 @@
       <td mat-cell *matCellDef="let s">{{ s.companyAmount | currency:'EUR' }}</td>
     </ng-container>
 
+    <!-- Vérifié -->
+    <ng-container matColumnDef="verified">
+      <th mat-header-cell *matHeaderCellDef>Vérifié</th>
+      <td mat-cell *matCellDef="let s">
+        <mat-checkbox
+          [(ngModel)]="s.verified"
+          (change)="toggleVerified(s)"
+          color="primary">
+        </mat-checkbox>
+      </td>
+    </ng-container>
+
     <!-- Action -->
     <ng-container matColumnDef="action">
       <th mat-header-cell *matHeaderCellDef>Action</th>
